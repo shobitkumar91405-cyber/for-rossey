@@ -1,223 +1,158 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For My Love ❤️</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Trishika!</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #fff0f5; /* Light blush pink */
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+            text-align: center;
+        }
 
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins&display=swap');
+        /* Luxury Header */
+        .header {
+            padding: 50px;
+            background: linear-gradient(45deg, #ff85a2, #ffb7c5);
+            color: white;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
 
-body{
-    margin:0;
-    background:linear-gradient(135deg,#ff9a9e,#fad0c4);
-    font-family:'Poppins',sans-serif;
-    text-align:center;
-    overflow:hidden;
-}
+        h1 { font-size: 3rem; margin: 0; text-shadow: 2px 2px 4px rgba(0,0,0,0.2); }
+        p.sub { font-style: italic; font-size: 1.2rem; }
 
-.section{display:none; padding:30px;}
-.active{display:block;}
+        /* Cake Section */
+        .cake-section { margin: 50px 0; cursor: pointer; }
+        .cake { font-size: 100px; transition: transform 0.3s; }
+        .cake:hover { transform: scale(1.1); }
 
-h1{
-    font-family:'Dancing Script',cursive;
-    color:#fff;
-    font-size:3rem;
-}
+        /* Balloon Section */
+        .balloon-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+        .balloon {
+            width: 80px;
+            height: 100px;
+            background: #ff4d6d;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            position: relative;
+        }
+        .balloon::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            width: 2px;
+            height: 30px;
+            background: #999;
+        }
 
-p{
-    color:#fff;
-    font-size:1.1rem;
-}
+        /* Message Box */
+        #message-box {
+            margin: 30px auto;
+            padding: 20px;
+            width: 80%;
+            max-width: 500px;
+            background: white;
+            border-radius: 15px;
+            display: none;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            animation: fadeIn 1s;
+        }
 
-button{
-    background:#ff4d6d;
-    color:white;
-    border:none;
-    padding:14px 30px;
-    border-radius:30px;
-    font-size:1rem;
-    cursor:pointer;
-    margin-top:20px;
-}
+        .shayari {
+            font-size: 1.1rem;
+            color: #d63384;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
 
-/* Balloons */
-.balloon-wrap{
-    display:flex;
-    justify-content:space-around;
-    margin-top:40px;
-}
+        button {
+            background: #ff4d6d;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
 
-.balloon-box{
-    animation: float 3s infinite ease-in-out;
-}
-
-.balloon{
-    width:70px;
-    height:90px;
-    border-radius:50%;
-}
-
-.b1{background:#ff6f91;}
-.b2{background:#845ec2;}
-.b3{background:#ffc75f;}
-
-.love-text{
-    color:white;
-    font-weight:bold;
-    margin-top:8px;
-}
-
-@keyframes float{
-    0%,100%{transform:translateY(0);}
-    50%{transform:translateY(-20px);}
-}
-
-/* Cake */
-.cake{
-    width:160px;
-    height:100px;
-    background:#f4a261;
-    margin:30px auto;
-    border-radius:10px;
-    position:relative;
-}
-
-.icing{
-    width:180px;
-    height:30px;
-    background:#e76f51;
-    position:absolute;
-    top:-15px;
-    left:-10px;
-    border-radius:20px;
-}
-
-.candle{
-    width:10px;
-    height:40px;
-    background:#ffd166;
-    position:absolute;
-    top:-50px;
-    left:75px;
-}
-
-.flame{
-    width:15px;
-    height:20px;
-    background:orange;
-    border-radius:50%;
-    position:absolute;
-    top:-20px;
-    left:-2px;
-    animation:flicker .5s infinite;
-}
-
-@keyframes flicker{
-    50%{transform:scale(1.2);}
-}
-
-footer{
-    color:white;
-    margin-top:30px;
-    font-size:.8rem;
-}
-</style>
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
 </head>
-
 <body>
 
-<!-- 🎵 MUSIC -->
-<audio id="music" src="song.mp3" loop></audio>
+    <div class="header">
+        <h1>Happy Birthday, Trishika! 🎂</h1>
+        <p class="sub">From: Sivasingh</p>
+    </div>
 
-<!-- SECTION 1 -->
-<div id="s1" class="section active">
-    <h1>Hey My Love ❤️</h1>
-    <p>
-        Aaj ka din sirf tumhara hai…  
-        aur maine tumhare liye  
-        dil se kuch khaas banaya hai 💕
-    </p>
-    <button onclick="next(1)">Start Surprise 🎁</button>
-</div>
+    <div class="cake-section" onclick="cutCake()">
+        <div class="cake">🎂</div>
+        <p><strong>(Click on the cake to cut it!)</strong></p>
+    </div>
 
-<!-- SECTION 2 BALLOONS -->
-<div id="s2" class="section">
-    <h1>Just For You 🎈</h1>
-
-    <div class="balloon-wrap">
-        <div class="balloon-box">
-            <div class="balloon b1"></div>
-            <div class="love-text">I LOVE YOU ❤️</div>
-        </div>
-        <div class="balloon-box">
-            <div class="balloon b2"></div>
-            <div class="love-text">I LOVE YOU ❤️</div>
-        </div>
-        <div class="balloon-box">
-            <div class="balloon b3"></div>
-            <div class="love-text">I LOVE YOU ❤️</div>
+    <div id="balloon-area" style="display:none;">
+        <h3>Phodo inhe! 🎈</h3>
+        <div class="balloon-container">
+            <div class="balloon" onclick="pop(this, 'I')">🎈</div>
+            <div class="balloon" onclick="pop(this, 'LOVE')">🎈</div>
+            <div class="balloon" onclick="pop(this, 'YOU 😍')">🎈</div>
         </div>
     </div>
 
-    <button onclick="next(2)">Next 💖</button>
-</div>
-
-<!-- SECTION 3 CAKE -->
-<div id="s3" class="section">
-    <h1>Make a Wish 🎂</h1>
-
-    <div class="cake" onclick="cutCake()">
-        <div class="icing"></div>
-        <div class="candle">
-            <div class="flame"></div>
-        </div>
+    <div id="message-box">
+        <div class="shayari" id="shayari-text"></div>
+        <button onclick="nextShayari()">Next Cute Message ✨</button>
     </div>
 
-    <p id="cakeText">Cake par click karo 🎉</p>
-</div>
+    <script>
+        const shayaris = [
+            "Khuda kare ki har raat chand ban kar aaye,\nDin ka har lamha shaan ban kar aaye,\nKabhi door na ho aapke chehre se muskurahat,\nHar din aisa mehakta hua gulab ban kar aaye.",
+            "Trishika, tum jaisi dost kismat se milti hai.\nTumhari hansi meri sabse badi khushi hai!",
+            "Phoolon ne amrit ka jaam bheja hai,\nSuraj ne gagan se salaam bheja hai,\nMubarak ho aapko aapka janamdin,\nHumni tahe-dil se yeh paigaam bheja hai.",
+            "Sivasingh ki taraf se duniya ki sabse best bestie ko,\nA very Happy Birthday! 🌟"
+        ];
 
-<!-- SECTION 4 SHAYARI -->
-<div id="s4" class="section">
-    <h1>For You ❤️</h1>
-    <p id="shayari"></p>
-    <button onclick="nextShayari()">Next 💌</button>
-</div>
+        let currentIdx = 0;
 
-<footer>Made with ❤️ by Sivasingh</footer>
+        function cutCake() {
+            alert("Luxury Cake Cut Ho Gaya! 🍰 Trishika, ab balloons phodo!");
+            document.querySelector('.cake').innerHTML = "🍰✨";
+            document.getElementById('balloon-area').style.display = 'block';
+        }
 
-<script>
-const shayari = [
-"तुम मुस्कुराओ तो लगे 🌸 जन्नत करीब आ गई हो 💖",
-"मेरी हर खुशी की वजह सिर्फ तुम हो ❤️",
-"तुम साथ हो तो हर दिन त्यौहार लगता है ✨",
-"दिल कहता है बार-बार… I Love You 💕",
-"तुम मेरी आदत नहीं, मेरी ज़रूरत हो ❤️",
-"हर जन्म में तुम ही चाहिए 🥀"
-];
+        function pop(el, msg) {
+            el.style.background = 'transparent';
+            el.style.border = '2px dashed #ff4d6d';
+            el.innerHTML = `<span style="color:#ff4d6d">${msg}</span>`;
+            
+            // Show messages after balloons are popped
+            document.getElementById('message-box').style.display = 'block';
+            nextShayari();
+        }
 
-let i=0;
-
-function next(n){
-    document.getElementById('music').play();
-    document.getElementById('s'+n).classList.remove('active');
-    document.getElementById('s'+(n+1)).classList.add('active');
-}
-
-function cutCake(){
-    document.querySelector('.flame').style.display="none";
-    document.getElementById('cakeText').innerText="Cake cut ho gaya 🎉";
-    setTimeout(()=>next(3),1500);
-}
-
-function nextShayari(){
-    if(i<shayari.length){
-        document.getElementById('shayari').innerText=shayari[i++];
-    }else{
-        alert("I LOVE YOU FOREVER ❤️");
-    }
-}
-</script>
-
+        function nextShayari() {
+            if(currentIdx < shayaris.length) {
+                document.getElementById('shayari-text').innerText = shayaris[currentIdx];
+                currentIdx++;
+            } else {
+                document.getElementById('shayari-text').innerText = "Hamesha khush raho Trishika! - Sivasingh ❤️";
+            }
+        }
+    </script>
 </body>
 </html>
