@@ -4,17 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Happy Birthday Trishika!</title>
+
     <style>
         body {
             margin: 0;
             padding: 0;
-            background: #fff0f5; /* Light blush pink */
+            background: #fff0f5;
             font-family: 'Poppins', sans-serif;
             overflow-x: hidden;
             text-align: center;
         }
 
-        /* Luxury Header */
         .header {
             padding: 50px;
             background: linear-gradient(45deg, #ff85a2, #ffb7c5);
@@ -22,21 +22,20 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
-        h1 { font-size: 3rem; margin: 0; text-shadow: 2px 2px 4px rgba(0,0,0,0.2); }
+        h1 { font-size: 3rem; margin: 0; }
         p.sub { font-style: italic; font-size: 1.2rem; }
 
-        /* Cake Section */
         .cake-section { margin: 50px 0; cursor: pointer; }
         .cake { font-size: 100px; transition: transform 0.3s; }
         .cake:hover { transform: scale(1.1); }
 
-        /* Balloon Section */
         .balloon-container {
             display: flex;
             justify-content: center;
             gap: 20px;
             margin-top: 30px;
         }
+
         .balloon {
             width: 80px;
             height: 100px;
@@ -51,6 +50,7 @@
             transition: 0.3s;
             position: relative;
         }
+
         .balloon::after {
             content: '';
             position: absolute;
@@ -60,7 +60,6 @@
             background: #999;
         }
 
-        /* Message Box */
         #message-box {
             margin: 30px auto;
             padding: 20px;
@@ -78,6 +77,7 @@
             color: #d63384;
             line-height: 1.6;
             margin-bottom: 20px;
+            white-space: pre-line;
         }
 
         button {
@@ -90,69 +90,81 @@
             font-size: 1rem;
         }
 
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
     </style>
 </head>
+
 <body>
 
-    <div class="header">
-        <h1>Happy Birthday, Trishika! 🎂</h1>
-        <p class="sub">From: Sivasingh</p>
+<!-- 🎵 MUSIC -->
+<audio id="bgMusic" loop>
+    <source src="birthday.mp3" type="audio/mpeg">
+</audio>
+
+<div class="header">
+    <h1>Happy Birthday, Trishika! 🎂</h1>
+    <p class="sub">From: Sivasingh ❤️</p>
+</div>
+
+<div class="cake-section" onclick="cutCake()">
+    <div class="cake">🎂</div>
+    <p><strong>(Click on the cake to cut it!)</strong></p>
+</div>
+
+<div id="balloon-area" style="display:none;">
+    <h3>Ab balloons phodo 🎈</h3>
+    <div class="balloon-container">
+        <div class="balloon" onclick="pop(this, 'I')">🎈</div>
+        <div class="balloon" onclick="pop(this, 'LOVE')">🎈</div>
+        <div class="balloon" onclick="pop(this, 'YOU 😍')">🎈</div>
     </div>
+</div>
 
-    <div class="cake-section" onclick="cutCake()">
-        <div class="cake">🎂</div>
-        <p><strong>(Click on the cake to cut it!)</strong></p>
-    </div>
+<div id="message-box">
+    <div class="shayari" id="shayari-text"></div>
+    <button onclick="nextShayari()">Next Cute Message ✨</button>
+</div>
 
-    <div id="balloon-area" style="display:none;">
-        <h3>Phodo inhe! 🎈</h3>
-        <div class="balloon-container">
-            <div class="balloon" onclick="pop(this, 'I')">🎈</div>
-            <div class="balloon" onclick="pop(this, 'LOVE')">🎈</div>
-            <div class="balloon" onclick="pop(this, 'YOU 😍')">🎈</div>
-        </div>
-    </div>
+<script>
+    const music = document.getElementById("bgMusic");
 
-    <div id="message-box">
-        <div class="shayari" id="shayari-text"></div>
-        <button onclick="nextShayari()">Next Cute Message ✨</button>
-    </div>
+    const shayaris = [
+        "Khuda kare ki har raat chand ban kar aaye,\nDin ka har lamha shaan ban kar aaye,\nKabhi door na ho aapke chehre se muskurahat,\nHar din aisa mehakta hua gulab ban kar aaye. 🌹",
+        "Trishika ❤️\nTumhari hansi meri duniya ka sabse khoobsurat sound hai.",
+        "Phoolon ne amrit ka jaam bheja hai,\nSuraj ne gagan se salaam bheja hai,\nMubarak ho aapko aapka janamdin 💫",
+        "Tum meri zindagi ka sabse pyaara hissa ho 🥀\n— Sivasingh"
+    ];
 
-    <script>
-        const shayaris = [
-            "Khuda kare ki har raat chand ban kar aaye,\nDin ka har lamha shaan ban kar aaye,\nKabhi door na ho aapke chehre se muskurahat,\nHar din aisa mehakta hua gulab ban kar aaye.",
-            "Trishika, tum jaisi dost kismat se milti hai.\nTumhari hansi meri sabse badi khushi hai!",
-            "Phoolon ne amrit ka jaam bheja hai,\nSuraj ne gagan se salaam bheja hai,\nMubarak ho aapko aapka janamdin,\nHumni tahe-dil se yeh paigaam bheja hai.",
-            "Sivasingh ki taraf se duniya ki sabse best bestie ko,\nA very Happy Birthday! 🌟"
-        ];
+    let currentIdx = 0;
 
-        let currentIdx = 0;
+    function cutCake() {
+        music.play().catch(()=>{});
+        alert("Cake cut ho gaya 🎂\nWish maango Trishika 💖");
+        document.querySelector('.cake').innerHTML = "🍰✨";
+        document.getElementById('balloon-area').style.display = 'block';
+    }
 
-        function cutCake() {
-            alert("Luxury Cake Cut Ho Gaya! 🍰 Trishika, ab balloons phodo!");
-            document.querySelector('.cake').innerHTML = "🍰✨";
-            document.getElementById('balloon-area').style.display = 'block';
+    function pop(el, msg) {
+        el.style.background = 'transparent';
+        el.style.border = '2px dashed #ff4d6d';
+        el.innerHTML = `<span style="color:#ff4d6d">${msg}</span>`;
+        document.getElementById('message-box').style.display = 'block';
+        nextShayari();
+    }
+
+    function nextShayari() {
+        if(currentIdx < shayaris.length) {
+            document.getElementById('shayari-text').innerText = shayaris[currentIdx];
+            currentIdx++;
+        } else {
+            document.getElementById('shayari-text').innerText =
+            "Hamesha khush raho Trishika ❤️\nTum meri duniya ho.\n— Sivasingh 🥀";
         }
+    }
+</script>
 
-        function pop(el, msg) {
-            el.style.background = 'transparent';
-            el.style.border = '2px dashed #ff4d6d';
-            el.innerHTML = `<span style="color:#ff4d6d">${msg}</span>`;
-            
-            // Show messages after balloons are popped
-            document.getElementById('message-box').style.display = 'block';
-            nextShayari();
-        }
-
-        function nextShayari() {
-            if(currentIdx < shayaris.length) {
-                document.getElementById('shayari-text').innerText = shayaris[currentIdx];
-                currentIdx++;
-            } else {
-                document.getElementById('shayari-text').innerText = "Hamesha khush raho Trishika! - Sivasingh ❤️";
-            }
-        }
-    </script>
 </body>
 </html>
