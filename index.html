@@ -1,171 +1,223 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For Nisha Khan - By SivaSingh</title>
-    <style>
-        :root {
-            --bg-color: #0b0e14;
-            --card-bg: #1a1f29;
-            --text-color: #e0e0e0;
-            --accent: #ff4757;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Ritika Ji - By SivaSingh</title>
 
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 20px;
-            overflow-x: hidden;
-        }
+<style>
+:root{
+--bg:#0b0e14;
+--card:#1a1f29;
+--accent:#ff4d6d;
+--text:#eaeaea;
+}
 
-        header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
+body{
+margin:0;
+font-family:'Segoe UI',sans-serif;
+background:var(--bg);
+color:var(--text);
+text-align:center;
+overflow-x:hidden;
+}
 
-        .doll-container {
-            font-size: 80px;
-            animation: bounce 2s infinite ease-in-out;
-            margin-bottom: 10px;
-        }
+header{
+padding:30px 10px;
+}
 
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(5deg); }
-        }
+h1{
+color:var(--accent);
+margin:10px 0;
+}
 
-        h1 { color: var(--accent); margin: 5px 0; }
-        .made-by { font-style: italic; opacity: 0.8; margin-bottom: 20px; }
+.made{
+opacity:.8;
+font-style:italic;
+}
 
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 15px;
-            width: 100%;
-            max-width: 800px;
-        }
+.doll{
+font-size:90px;
+animation:bounce 2s infinite;
+}
 
-        .card {
-            background: var(--card-bg);
-            border: 2px solid #333;
-            border-radius: 15px;
-            height: 120px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            position: relative;
-            transition: transform 0.3s;
-            text-align: center;
-            padding: 10px;
-            overflow: hidden;
-        }
+@keyframes bounce{
+0%,100%{transform:translateY(0)}
+50%{transform:translateY(-20px)}
+}
 
-        .card:hover { transform: scale(1.05); border-color: var(--accent); }
+/* music */
+audio{display:none}
 
-        .card .cover {
-            font-size: 40px;
-            z-index: 2;
-        }
+/* photo slider */
+.gallery{
+display:flex;
+overflow-x:auto;
+gap:15px;
+padding:20px;
+scrollbar-width:none;
+}
+.gallery::-webkit-scrollbar{display:none}
 
-        .card .content {
-            display: none;
-            font-size: 14px;
-            line-height: 1.4;
-            font-weight: bold;
-        }
+.gallery img{
+height:180px;
+border-radius:15px;
+border:3px solid var(--accent);
+flex-shrink:0;
+transition:.3s;
+}
+.gallery img:hover{transform:scale(1.05)}
 
-        .blast {
-            animation: blastEffect 0.5s forwards;
-        }
+/* cards */
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+gap:15px;
+max-width:900px;
+margin:30px auto;
+padding:10px;
+}
 
-        @keyframes blastEffect {
-            0% { transform: scale(0.5); opacity: 0; }
-            50% { transform: scale(1.2); }
-            100% { transform: scale(1); opacity: 1; }
-        }
+.card{
+background:var(--card);
+border:2px solid #333;
+border-radius:15px;
+height:130px;
+display:flex;
+align-items:center;
+justify-content:center;
+cursor:pointer;
+padding:10px;
+transition:.3s;
+position:relative;
+overflow:hidden;
+}
 
-        .emoji-float {
-            position: fixed;
-            pointer-events: none;
-            z-index: 999;
-        }
-    </style>
+.card:hover{border-color:var(--accent);transform:scale(1.05)}
+
+.cover{
+font-size:40px;
+}
+
+.content{
+display:none;
+font-size:14px;
+font-weight:bold;
+line-height:1.4;
+}
+
+.blast{
+animation:blast .5s forwards;
+}
+
+@keyframes blast{
+0%{transform:scale(.5);opacity:0}
+60%{transform:scale(1.2)}
+100%{transform:scale(1);opacity:1}
+}
+
+.float{
+position:fixed;
+pointer-events:none;
+z-index:999;
+}
+
+footer{
+padding:30px;
+font-size:18px;
+color:var(--accent);
+}
+</style>
 </head>
+
 <body>
 
-    <!-- 🎵 SONG ADDED HERE -->
-    <audio id="bgMusic" loop>
-        <source src="newsong.mp3" type="audio/mpeg">
-    </audio>
+<!-- 🎵 SONG -->
+<audio autoplay loop>
+<source src="birthday.mp3" type="audio/mpeg">
+</audio>
 
-    <div class="doll-container">👦🏻</div>
-    <header>
-        <h1>For Nisha Khan ✨</h1>
-        <p class="made-by">Made with ❤️ by SivaSingh</p>
-        <p>Click the boxes to reveal surprises 🎁</p>
-    </header>
+<header>
+<div class="doll">👦🏻</div>
+<h1>For Ritika Ji 😍</h1>
+<p class="made">Made with ❤️ by SivaSingh🥀</p>
+<p>Click cards one by one 💌</p>
+</header>
 
-    <div class="grid" id="shayariGrid"></div>
+<!-- 📸 PHOTOS -->
+<div class="gallery">
+<img src="photo1.jpg">
+<img src="photo2.jpg">
+<img src="photo3.jpg">
+<img src="photo4.jpg">
+<img src="photo5.jpg">
+<img src="photo6.jpg">
+<img src="photo7.jpg">
+<img src="photo8.jpg">
+<img src="photo9.jpg">
+<img src="photo10.jpg">
+</div>
 
-    <script>
-        const music = document.getElementById("bgMusic");
+<!-- 💌 CARDS -->
+<div class="grid" id="grid"></div>
 
-        function forcePlayMusic() {
-            if (music.paused) {
-                music.play().catch(()=>{});
-            }
-        }
+<footer>
+Always smiling, always special ✨  
+<br>— SivaSingh
+</footer>
 
-        document.addEventListener("click", forcePlayMusic);
-        document.addEventListener("touchstart", forcePlayMusic);
+<script>
+const msgs=[
+"Zindagi ke safar mein tera saath chahiye, tanhai mein tera haath chahiye 💖",
+"Phool bhi sharma jaye, jab Ritika Ji muskuraye 🌸",
+"Dosti ka sabse khoobsurat naam ho tum 💫",
+"Har pal khush raho, yahi meri dua hai 🙏",
+"Ritika Ji, tum meri dosti ki shaan ho 💎",
+"Teri hansi mere din bana deti hai ☀️",
+"Duniya ki saari khushiyan tumhare naam 🎁",
+"Tu ho to har pal special lagta hai ✨",
+"Dosti ka rishta sabse pyara hota hai 🫰",
+"Ritika Ji jaisi dost naseeb walon ko milti hai 💝",
+"Har mood mein cute, har pal sweet 😍",
+"Tera hona hi kaafi hai 💕",
+"Muskurate raho hamesha 🌈",
+"Dil se likha har lafz sirf tumhare liye 💌",
+"Yeh website sirf tumhare liye hi hai 😘"
+];
 
-        const shayaris = [
-            "Zindagi ke safar mein tera sath chahiye, tanhaiyon mein tera hath chahiye.",
-            "Phoolon ki mehak bhi fiki lagti hai, jab Nisha teri muskurahat dikhti hai.",
-            "Khuda kare har khushi teri ho, har kadam pe kamyabi teri ho.",
-            "Dosti ka rishta sabse pyara hai, tu hi is dil ka sitara hai.",
-            "Chand se pyari chandni, chandni se pyari raat, raat se pyari zindagi, aur zindagi se pyari teri dosti.",
-            "Aapki dosti ne humein jeena sikhaya, har mod pe saath nibhaya.",
-            "Khuda se mangi thi ek dua, mil gayi tum jaisi dost wafa.",
-            "Dil se likhi hai baat, hamesha rahe Nisha tera saath.",
-            "Teri dosti ka nasha hai, har dard ki yahi dawa hai.",
-            "Suraj ki pehli kiran ho tum, mere liye sabse khas ho tum.",
-            "Bas tum haste raho, yahi dua hai meri har pal.",
-            "Duniya ki har khushi Nisha ke naam ho, tera har din ek naya paigam ho.",
-            "Dil ke rishte kabhi toote nahi karte, sachi dost kabhi rootha nahi karte.",
-            "Aapki muskurahat sabse haseen hai, aap jaisa koi aur nahi hai.",
-            "Zindagi mein aaye ho aise, jaise koi dua qubool hui ho.",
-            "Khushboo ki tarah mehko tum sada, dosti ka yahi hai asli maza.",
-            "Har pal tumhein yaad karte hain, tumhari dosti pe naaz karte hain.",
-            "Nisha, tum meri dosti ka maan ho, is dil ki tum hi shaan ho.",
-            "Rabb se bas yahi maangte hain, ki tum hamesha salamat raho.",
-            "Dosti ka safar yunhi chalta rahe, waqt badle par hum na badlein.",
-            "SivaSingh ki taraf se dosti ka uphar, hamesha rahe tumse pyaar aur dular."
-        ];
+const emojis=["💖","✨","😍","🌸","🦋","🎈","💝","🔥"];
+const grid=document.getElementById("grid");
 
-        const emojis = ["🌟","✨","🔥","💎","🌸","🦋","🎈","🍫"];
-        const grid = document.getElementById("shayariGrid");
+msgs.forEach(m=>{
+const c=document.createElement("div");
+c.className="card";
+c.innerHTML=`<div class="cover">${emojis[Math.floor(Math.random()*emojis.length)]}</div>
+<div class="content">${m}</div>`;
+c.onclick=e=>{
+c.querySelector(".cover").style.display="none";
+const t=c.querySelector(".content");
+t.style.display="block";
+t.classList.add("blast");
+blast(e);
+};
+grid.appendChild(c);
+});
 
-        shayaris.forEach(text => {
-            const card = document.createElement("div");
-            card.className = "card";
-            const emoji = emojis[Math.floor(Math.random()*emojis.length)];
-            card.innerHTML = `<div class="cover">${emoji}</div><div class="content">${text}</div>`;
-            card.onclick = e => {
-                card.querySelector(".cover").style.display="none";
-                const c = card.querySelector(".content");
-                c.style.display="block";
-                c.classList.add("blast");
-            };
-            grid.appendChild(card);
-        });
-    </script>
+function blast(e){
+for(let i=0;i<8;i++){
+const f=document.createElement("div");
+f.className="float";
+f.innerHTML=emojis[Math.floor(Math.random()*emojis.length)];
+f.style.left=e.clientX+"px";
+f.style.top=e.clientY+"px";
+document.body.appendChild(f);
+f.animate([
+{transform:"translate(0,0)",opacity:1},
+{transform:`translate(${(Math.random()-0.5)*200}px,${(Math.random()-0.5)*200}px)`,opacity:0}
+],{duration:900}).onfinish=()=>f.remove();
+}
+}
+</script>
+
 </body>
 </html>
