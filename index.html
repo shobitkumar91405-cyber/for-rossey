@@ -3,659 +3,520 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>SivaSingh Heart</title>
+    <title>Aarvi & Siva</title>
     <style>
         :root {
-            --bg: #0b0e14;
-            --accent: #ff2d55;
-            --dark-red: #8b0000;
-            --glass: rgba(255, 255, 255, 0.05);
-            --text: #e0e0e0;
+            --bg-dark: #0a0a0a;
+            --heart-color: #ff2e63;
+            --text-gold: #d4af37;
+            --glass: rgba(255, 255, 255, 0.1);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
         body {
-            background: var(--bg);
-            color: var(--text);
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: var(--bg-dark);
+            color: #fff;
+            font-family: 'Segoe UI', Roboto, sans-serif;
             overflow-x: hidden;
             height: 100vh;
         }
 
-        /* --- GLOBAL BACKGROUND EFFECTS --- */
-        #canvas-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            pointer-events: none;
-        }
-
-        .thunder-flash {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: white;
-            opacity: 0;
-            z-index: 1000;
-            pointer-events: none;
-        }
-
-        /* --- INTRO SCREEN --- */
-        #intro-screen {
+        /* --- INTRO SECTION --- */
+        #intro-overlay {
             position: fixed;
             inset: 0;
-            z-index: 100;
+            background: radial-gradient(circle at center, #1a1a1a 0%, #000 100%);
+            z-index: 9999;
             display: flex;
-            flex-direction: column;
-            align-items: center;
             justify-content: center;
-            background: radial-gradient(circle at center, #1a1a2e 0%, #0b0e14 100%);
-            transition: opacity 1s ease-out;
+            align-items: center;
+            overflow: hidden;
         }
 
+        .rain {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .petal {
+            position: absolute;
+            color: #ff4d6d;
+            font-size: 20px;
+            pointer-events: none;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            to { transform: translateY(100vh) rotate(360deg); }
+        }
+
+        /* 3D Rotating Heart */
         .heart-container {
+            position: relative;
+            width: 200px;
+            height: 200px;
             perspective: 1000px;
             cursor: pointer;
-            position: relative;
+            z-index: 10;
         }
 
         .heart-3d {
-            width: 150px;
-            height: 150px;
+            width: 100%;
+            height: 100%;
             position: relative;
             transform-style: preserve-3d;
-            animation: rotate3d 10s infinite linear, heartbeat 1.5s infinite ease-in-out;
-            transition: transform 0.3s;
+            animation: rotateHeart 5s infinite linear, heartbeat 1.2s infinite ease-in-out;
         }
 
-        .heart-3d:before, .heart-3d:after {
-            content: "";
+        .heart-3d::before, .heart-3d::after {
+            content: '';
             position: absolute;
             width: 100px;
             height: 160px;
-            background: var(--accent);
+            background: var(--heart-color);
             border-radius: 50px 50px 0 0;
-            transform-origin: 0 100%;
-            box-shadow: 0 0 40px var(--accent);
+            animation: colorShift 8s infinite alternate;
         }
 
-        .heart-3d:before { transform: rotate(-45deg); left: 75px; }
-        .heart-3d:after { transform: rotate(45deg); left: -25px; }
+        .heart-3d::before { transform: rotate(-45deg); left: 50px; }
+        .heart-3d::after { transform: rotate(45deg); left: 0px; }
 
-        @keyframes rotate3d {
-            0% { transform: rotateX(0) rotateY(0); }
-            100% { transform: rotateX(360deg) rotateY(360deg); }
+        @keyframes rotateHeart {
+            0% { transform: rotateY(0deg); }
+            100% { transform: rotateY(360deg); }
         }
 
         @keyframes heartbeat {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
+            0%, 100% { transform: scale(1) rotateY(var(--ry, 0deg)); }
+            50% { transform: scale(1.15) rotateY(var(--ry, 0deg)); }
         }
 
-        /* --- WELCOME BOX --- */
-        #welcome-box {
+        @keyframes colorShift {
+            0% { background: #ff2e63; }
+            50% { background: #8e44ad; }
+            100% { background: #c0392b; }
+        }
+
+        /* Question Section */
+        #proposal-ui {
             display: none;
             text-align: center;
-            z-index: 101;
             padding: 20px;
-            animation: fadeIn 1s;
+            z-index: 10000;
         }
 
-        .glowing-text {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: #fff;
-            text-shadow: 0 0 10px var(--accent), 0 0 20px var(--accent);
-            margin-bottom: 30px;
-            line-height: 1.4;
-        }
-
-        .btn-container { display: flex; gap: 20px; justify-content: center; }
         .btn {
-            padding: 12px 30px;
+            padding: 15px 35px;
+            margin: 10px;
             border: none;
-            border-radius: 25px;
+            border-radius: 30px;
             font-weight: bold;
             cursor: pointer;
             transition: 0.3s;
-            text-transform: uppercase;
-            letter-spacing: 1px;
         }
-        .btn-yes { background: var(--accent); color: white; box-shadow: 0 0 15px var(--accent); }
-        .btn-breakup { background: transparent; border: 2px solid #555; color: #aaa; }
 
-        /* --- CALL SCREEN --- */
-        #call-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(11, 14, 20, 0.95);
-            z-index: 200;
+        .btn-yes { background: #2ecc71; color: white; }
+        .btn-breakup { background: #c0392b; color: white; }
+
+        /* --- BREAKUP FLOW --- */
+        #breakup-screen {
             display: none;
+            position: fixed;
+            inset: 0;
+            background: #000;
+            z-index: 20000;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .broken-heart {
+            font-size: 80px;
+            animation: crack 1s forwards;
+        }
+
+        @keyframes crack {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2) rotate(5deg); opacity: 1; }
+            100% { transform: scale(0); opacity: 0; }
+        }
+
+        /* --- CALL UI --- */
+        #call-ui {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: #1a1a1a;
+            z-index: 30000;
             flex-direction: column;
             align-items: center;
-            justify-content: space-between;
-            padding: 80px 0;
-            animation: slideUp 0.5s ease-out;
+            justify-content: space-around;
+            padding: 50px 0;
         }
 
-        .caller-info { text-align: center; }
-        .caller-img {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            border: 3px solid #fff;
-            margin-bottom: 15px;
-            object-fit: cover;
-            animation: vibrate 0.5s infinite;
-        }
-
-        .call-btns {
-            display: flex;
-            gap: 60px;
-        }
-
-        .call-btn {
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 30px;
-            cursor: pointer;
-        }
-        .accept { background: #4cd964; color: white; animation: pulse 1.5s infinite; }
-        .decline { background: #ff3b30; color: white; opacity: 0.5; cursor: not-allowed; }
-
-        .chat-dialog {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 80%;
-            text-align: center;
-            font-size: 1.2rem;
-            color: #fff;
+        /* --- MAIN CONTENT --- */
+        #main-site {
             display: none;
-        }
-
-        /* --- MAIN WEBSITE --- */
-        #main-content {
-            display: none;
-            position: relative;
-            z-index: 10;
-            padding: 20px;
-            max-width: 600px;
+            width: 100%;
+            max-width: 500px;
             margin: 0 auto;
-            opacity: 0;
-            transition: opacity 1s;
+            padding: 20px;
+            padding-bottom: 100px;
         }
 
         .section-title {
-            margin: 40px 0 20px;
-            font-size: 0.9rem;
+            text-align: center;
+            color: var(--text-gold);
+            margin: 30px 0 15px;
+            font-size: 1.5rem;
             text-transform: uppercase;
             letter-spacing: 2px;
-            color: #666;
-            border-left: 3px solid var(--accent);
-            padding-left: 10px;
         }
 
-        /* Typewriter */
-        .typewriter {
-            height: 50px;
-            text-align: center;
-            font-style: italic;
-            color: #aaa;
-            margin: 20px 0;
-        }
-
-        /* Videos */
+        /* Video Section */
         .video-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
             gap: 15px;
         }
+
         .video-card {
             background: var(--glass);
-            border-radius: 12px;
+            border-radius: 15px;
             overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.1);
             position: relative;
         }
-        video { width: 100%; display: block; }
 
-        /* Photos */
-        #photo-memories {
+        video {
             width: 100%;
-            aspect-ratio: 4/5;
-            background-size: cover;
-            background-position: center;
-            border-radius: 15px;
-            transition: 0.5s ease-in-out;
-            cursor: pointer;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            display: block;
+            border-radius: 10px;
         }
 
-        /* Shayari Cards */
-        .sad-card {
-            background: linear-gradient(145deg, #161b22, #0b0e14);
+        /* Photo Section */
+        .photo-scroll {
+            display: flex;
+            overflow-x: auto;
+            gap: 10px;
+            padding: 10px 0;
+            scrollbar-width: none;
+        }
+
+        .photo-card {
+            min-width: 250px;
+            height: 350px;
+            border-radius: 15px;
+            object-fit: cover;
+            border: 2px solid var(--glass);
+        }
+
+        /* Shayari Section */
+        .shayari-card {
+            background: linear-gradient(135deg, #1a1a1a, #2c3e50);
             padding: 20px;
             border-radius: 15px;
             margin-bottom: 15px;
-            border-left: 4px solid var(--dark-red);
+            border-left: 5px solid var(--heart-color);
             cursor: pointer;
-            transition: 0.3s;
         }
-        .sad-card:active { transform: scale(0.98); }
 
-        /* Fake Chat */
-        .chat-ui {
-            background: #121820;
+        /* Chat Section */
+        .chat-box {
+            background: #000;
             border-radius: 15px;
             padding: 15px;
-            margin-top: 20px;
+            margin: 20px 0;
         }
-        .msg { margin-bottom: 10px; max-width: 80%; padding: 10px 15px; border-radius: 18px; font-size: 0.9rem; }
-        .msg.sent { background: #056162; margin-left: auto; border-bottom-right-radius: 2px; }
-        .msg-meta { font-size: 0.7rem; color: #888; text-align: right; margin-top: 5px; }
 
-        .insta-footer {
+        .msg {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 10px;
+            max-width: 80%;
+        }
+
+        .msg.left { background: #333; align-self: flex-start; }
+        .msg.right { background: #075e54; margin-left: auto; }
+
+        /* Shake/Flash Effects */
+        .flash { animation: flashEffect 0.2s 3; }
+        @keyframes flashEffect { 0%, 100% { background: #000; } 50% { background: #fff; } }
+        .shake { animation: shakeEffect 0.4s; }
+        @keyframes shakeEffect { 
+            0% { transform: translate(0,0); } 10% { transform: translate(-10px, -10px); }
+            30% { transform: translate(10px, 10px); } 50% { transform: translate(-10px, 10px); }
+            100% { transform: translate(0,0); }
+        }
+
+        #final-goodbye {
             text-align: center;
-            padding: 40px 0;
-            color: #555;
+            padding: 50px 20px;
+            margin-top: 50px;
+            border-top: 1px solid #333;
         }
-
-        #goodbye-section {
-            padding: 60px 20px;
-            text-align: center;
-            border-top: 1px solid #222;
-        }
-
-        /* Animations */
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
-        @keyframes vibrate { 0% { transform: rotate(0); } 25% { transform: rotate(2deg); } 75% { transform: rotate(-2deg); } 100% { transform: rotate(0); } }
-        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(76, 217, 100, 0.4); } 70% { box-shadow: 0 0 0 20px rgba(76, 217, 100, 0); } 100% { box-shadow: 0 0 0 0 rgba(76, 217, 100, 0); } }
-
-        .broken-heart-anim {
-            width: 100px; height: 100px; position: relative;
-        }
-        .half {
-            position: absolute; width: 50px; height: 80px; background: #555; border-radius: 50px 50px 0 0;
-        }
-        .left-h { left: 0; transform: rotate(-45deg); transition: 2s; transform-origin: 100% 100%; }
-        .right-h { left: 25px; transform: rotate(45deg); transition: 2s; transform-origin: 0% 100%; }
     </style>
 </head>
-<body onclick="initAudio()">
+<body>
 
-    <canvas id="canvas-bg"></canvas>
-    <div class="thunder-flash" id="thunder"></div>
+    <audio id="bgMusic" src="newsong.mp3" loop></audio>
+    <audio id="shayariAudio" src="broken.mp3"></audio>
 
-    <audio id="bg-music" loop src="newsong.mp3"></audio>
-    <audio id="tap-sound" src="broken.mp3"></audio>
-    <audio id="heart-beat" loop src="broken.mp3" volume="0.3"></audio> <section id="intro-screen">
-        <div class="heart-container" id="main-heart-trigger">
-            <div class="heart-3d" id="heart-node"></div>
-        </div>
-        <div id="welcome-box">
-            <h1 class="glowing-text">Aarvi ji<br>Welcome to SivaSingh’s heart 💖<br>I want to say I love you<br>Do you love me?</h1>
-            <div class="btn-container">
+    <div id="intro-overlay">
+        <div class="rain" id="rainContainer"></div>
+        <div id="intro-content">
+            <div class="heart-container" id="mainHeart">
+                <div class="heart-3d"></div>
+            </div>
+            <div id="proposal-ui">
+                <h1 style="color: var(--text-gold);">Aarvi ji</h1>
+                <p>Welcome to SivaSingh’s heart 💖</p>
+                <p>I want to say I love you</p>
+                <p style="margin-bottom: 20px;">Do you love me?</p>
                 <button class="btn btn-yes" onclick="handleYes()">YES ❤️</button>
                 <button class="btn btn-breakup" onclick="handleBreakup()">BREAKUP 💔</button>
             </div>
         </div>
-    </section>
+    </div>
 
-    <section id="call-screen">
-        <div class="caller-info">
-            <img src="photo1.jpg" class="caller-img" alt="Aarvi">
+    <div id="breakup-screen">
+        <div class="broken-heart">💔</div>
+        <h2 id="breakup-text">Broken...</h2>
+    </div>
+
+    <div id="call-ui">
+        <div style="text-align: center;">
+            <div style="width: 100px; height: 100px; background: #444; border-radius: 50%; margin: 0 auto 20px;"></div>
             <h2>Aarvi</h2>
-            <p>Calling...</p>
+            <p>Incoming Call...</p>
         </div>
-        <div class="chat-dialog" id="call-dialog"></div>
-        <div class="call-btns" id="call-controls">
-            <div class="call-btn decline">❌</div>
-            <div class="call-btn accept" onclick="startConversation()">📞</div>
+        <div id="call-dialogue" style="padding: 20px; font-style: italic; color: #aaa; text-align: center; min-height: 80px;"></div>
+        <div style="display: flex; gap: 50px;">
+            <div style="width: 60px; height: 60px; background: #e74c3c; border-radius: 50%; display: flex; justify-content: center; align-items: center;">📞</div>
+            <div style="width: 60px; height: 60px; background: #2ecc71; border-radius: 50%; display: flex; justify-content: center; align-items: center;">📞</div>
         </div>
-    </section>
+    </div>
 
-    <main id="main-content">
-        <div class="typewriter" id="typewriter"></div>
+    <div id="main-site">
+        <div id="typewriter" style="height: 50px; text-align: center; color: #ff7675; font-size: 1.1rem; margin-bottom: 20px;"></div>
 
-        <h2 class="section-title">Broken Memories</h2>
-        <div id="photo-memories" onclick="changePhoto()" style="background-image: url('photo1.jpg');"></div>
-
-        <h2 class="section-title">Feel My Pain</h2>
+        <h2 class="section-title">Memories</h2>
         <div class="video-grid">
-            <div class="video-card"><video id="v1" onclick="playVideo('v1')" src="video1.mp3"></video></div>
-            <div class="video-card"><video id="v2" onclick="playVideo('v2')" src="video2.mp3"></video></div>
-            <div class="video-card"><video id="v3" onclick="playVideo('v3')" src="video3.mp3"></video></div>
-            <div class="video-card"><video id="v4" onclick="playVideo('v4')" src="video4.mp3"></video></div>
+            <div class="video-card"><video src="video1.mp4" playsinline controls preload="metadata"></video></div>
+            <div class="video-card"><video src="video2.mp4" playsinline controls preload="metadata"></video></div>
+            <div class="video-card"><video src="video3.mp4" playsinline controls preload="metadata"></video></div>
+            <div class="video-card"><video src="video4.mp4" playsinline controls preload="metadata"></video></div>
         </div>
 
-        <h2 class="section-title">Silent Screams</h2>
-        <div class="sad-card" onclick="shayariTap(this)">
-            "Kuch log sirf yaadon mein reh jaate hain... Mohabbat toh rehti hai, par insaan chale jaate hain."
-        </div>
-        <div class="sad-card" onclick="shayariTap(this)">
-            "Tumhara hoke bhi hum tumhare na rahe, ye kaisi mohabbat hai jo sirf dard deti hai."
-        </div>
-
-        <h2 class="section-title">The Unread</h2>
-        <div class="chat-ui">
-            <div class="msg sent">
-                Tum ab bhi yaad aati ho...
-                <div class="msg-meta">Seen ✔✔</div>
-            </div>
-            <div style="font-size: 0.7rem; color: #555; text-align: center; margin-top: 10px;">Last seen long ago</div>
+        <h2 class="section-title">Gallery</h2>
+        <div class="photo-scroll">
+            <img src="photo1.jpg" class="photo-card" alt="Memory">
+            <img src="photo2.jpg" class="photo-card" alt="Memory">
+            <img src="photo3.jpg" class="photo-card" alt="Memory">
+            <img src="photo4.jpg" class="photo-card" alt="Memory">
+            <img src="photo5.jpg" class="photo-card" alt="Memory">
+            <img src="photo6.jpg" class="photo-card" alt="Memory">
+            <img src="photo7.jpg" class="photo-card" alt="Memory">
+            <img src="photo8.jpg" class="photo-card" alt="Memory">
+            <img src="photo9.jpg" class="photo-card" alt="Memory">
+            <img src="photo10.jpg" class="photo-card" alt="Memory">
         </div>
 
-        <div class="insta-footer">
-            <p>📸 Instagram</p>
-            <p>@smss1708 | @black_its_me20</p>
+        <h2 class="section-title">Shayari</h2>
+        <div class="shayari-card" onclick="playShayari()">
+            <p>"Tumhare bina jeena mushkil hai,<br>Aur tumhe ye batana aur bhi mushkil..."</p>
+            <small>Tap to feel 🎧</small>
+        </div>
+        <div class="shayari-card" onclick="playShayari()">
+            <p>"Mohabbat thi isliye jane diya,<br>Zidd hoti toh baahon mein hoti."</p>
+            <small>Tap to feel 🎧</small>
         </div>
 
-        <div id="goodbye-section">
-            <div id="final-heart" style="display: flex; justify-content: center; margin-bottom: 20px;">
-                <div class="broken-heart-anim">
-                    <div class="half left-h" id="final-l"></div>
-                    <div class="half right-h" id="final-r"></div>
-                </div>
-            </div>
-            <p style="color: #888; margin-bottom: 10px;">"Mai ja rahi hoon… hamesha ke liye…"</p>
-            <p style="color: #666; font-style: italic; margin-bottom: 30px;">"Aarvi: Tum apni zindagi jee lena, mujhe bhool jana…"</p>
-            <button class="btn btn-breakup" onclick="finalGoodbye()">Good Bye 🥀</button>
+        <h2 class="section-title">Chat History</h2>
+        <div class="chat-box">
+            <div class="msg left">Siva?</div>
+            <div class="msg right">Haan Aarvi...</div>
+            <div class="msg left">Humara kuch nahi ho sakta.</div>
+            <div class="msg right">Aisa mat bolo please 💔</div>
         </div>
-    </main>
+
+        <div style="text-align: center; margin: 30px 0;">
+            <p style="color: #888;">Follow me on Instagram</p>
+            <p style="color: var(--heart-color);">@smss1708 | @black_its_me20</p>
+        </div>
+
+        <div id="final-goodbye">
+            <p style="font-size: 1.2rem; margin-bottom: 20px;">Mai ja rahi hoon… hamesha ke liye…</p>
+            <button class="btn btn-breakup" onclick="finalExit()">Good Bye 🥀</button>
+        </div>
+    </div>
 
     <script>
-        const canvas = document.getElementById('canvas-bg');
-        const ctx = canvas.getContext('2d');
-        let particles = [];
-        let rain = [];
-        let heartParticles = [];
-        let audioStarted = false;
+        const bgMusic = document.getElementById('bgMusic');
+        const shayariAudio = document.getElementById('shayariAudio');
+        const videos = document.querySelectorAll('video');
+        const rainContainer = document.getElementById('rainContainer');
 
-        function initAudio() {
-            if(audioStarted) return;
-            document.getElementById('heart-beat').play();
-            audioStarted = true;
-        }
-
-        // --- BACKGROUND ENGINE ---
-        function resize() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-        window.addEventListener('resize', resize);
-        resize();
-
-        class RainDrop {
-            constructor() { this.reset(); }
-            reset() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * -canvas.height;
-                this.v = 10 + Math.random() * 10;
-                this.l = 10 + Math.random() * 20;
-            }
-            update() {
-                this.y += this.v;
-                if (this.y > canvas.height) this.reset();
-            }
-            draw() {
-                ctx.strokeStyle = 'rgba(174, 194, 224, 0.2)';
-                ctx.lineWidth = 1;
-                ctx.beginPath();
-                ctx.moveTo(this.x, this.y);
-                ctx.lineTo(this.x, this.y + this.l);
-                ctx.stroke();
+        // Create Rain & Petals
+        function createAtmosphere() {
+            for(let i=0; i<50; i++) {
+                const petal = document.createElement('div');
+                petal.className = 'petal';
+                petal.innerHTML = i % 2 === 0 ? '🌸' : '💧';
+                petal.style.left = Math.random() * 100 + 'vw';
+                petal.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                petal.style.opacity = Math.random();
+                rainContainer.appendChild(petal);
             }
         }
+        createAtmosphere();
 
-        class RosePetal {
-            constructor() { this.reset(); }
-            reset() {
-                this.x = Math.random() * canvas.width;
-                this.y = -20;
-                this.s = 1 + Math.random() * 2;
-                this.r = Math.random() * 360;
-                this.rs = Math.random() * 2;
-            }
-            update() {
-                this.y += this.s;
-                this.x += Math.sin(this.y / 50);
-                this.r += this.rs;
-                if (this.y > canvas.height) this.reset();
-            }
-            draw() {
-                ctx.save();
-                ctx.translate(this.x, this.y);
-                ctx.rotate(this.r * Math.PI / 180);
-                ctx.fillStyle = 'rgba(255, 0, 50, 0.4)';
-                ctx.beginPath();
-                ctx.ellipse(0, 0, 5, 8, 0, 0, 2 * Math.PI);
-                ctx.fill();
-                ctx.restore();
-            }
-        }
-
-        for(let i=0; i<100; i++) rain.push(new RainDrop());
-        for(let i=0; i<30; i++) particles.push(new RosePetal());
-
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            rain.forEach(r => { r.update(); r.draw(); });
-            particles.forEach(p => { p.update(); p.draw(); });
-            
-            heartParticles.forEach((hp, i) => {
-                hp.x += hp.vx; hp.y += hp.vy; hp.alpha -= 0.01;
-                if(hp.alpha <= 0) heartParticles.splice(i, 1);
-                ctx.fillStyle = `rgba(255, 45, 85, ${hp.alpha})`;
-                ctx.font = '20px Arial';
-                ctx.fillText('❤️', hp.x, hp.y);
-            });
-
-            if(Math.random() < 0.005) {
-                document.getElementById('thunder').style.opacity = '0.3';
-                setTimeout(() => document.getElementById('thunder').style.opacity = '0', 100);
-            }
-            requestAnimationFrame(animate);
-        }
-        animate();
-
-        // --- INTERACTION LOGIC ---
-        const intro = document.getElementById('intro-screen');
-        const welcome = document.getElementById('welcome-box');
-        const heartNode = document.getElementById('heart-node');
-
-        document.getElementById('main-heart-trigger').onclick = function() {
-            triggerThunder();
-            heartNode.style.display = 'none';
-            welcome.style.display = 'block';
-            for(let i=0; i<20; i++) {
-                heartParticles.push({
-                    x: window.innerWidth/2, y: window.innerHeight/2,
-                    vx: (Math.random()-0.5)*10, vy: (Math.random()-0.5)*10, alpha: 1
-                });
-            }
-        };
-
-        function triggerThunder() {
-            const t = document.getElementById('thunder');
-            t.style.opacity = '0.8';
-            document.body.style.transform = 'translate(5px, 5px)';
-            setTimeout(() => { t.style.opacity = '0'; document.body.style.transform = 'none'; }, 150);
-        }
+        // Intro Logic
+        document.getElementById('mainHeart').addEventListener('click', function() {
+            document.body.classList.add('flash', 'shake');
+            this.style.display = 'none';
+            setTimeout(() => {
+                document.body.classList.remove('flash', 'shake');
+                document.getElementById('proposal-ui').style.display = 'block';
+            }, 500);
+        });
 
         function handleYes() {
-            const glowingText = welcome.querySelector('.glowing-text');
-            glowingText.innerHTML = "She said YES 💖";
-            welcome.querySelector('.btn-container').style.display = 'none';
-            setTimeout(openMainSite, 2000);
+            alert("She said YES 💖");
+            startSequence();
         }
 
         function handleBreakup() {
-            triggerThunder();
-            welcome.style.display = 'none';
-            intro.style.background = '#050505';
-            
-            const brokenDiv = document.createElement('div');
-            brokenDiv.className = 'broken-heart-anim';
-            brokenDiv.innerHTML = `<div class="half left-h" style="background:#8b0000"></div><div class="half right-h" style="background:#8b0000"></div>`;
-            intro.appendChild(brokenDiv);
-            
+            const screen = document.getElementById('breakup-screen');
+            screen.style.display = 'flex';
             setTimeout(() => {
-                brokenDiv.querySelector('.left-h').style.transform = 'rotate(-60deg) translate(-20px, 50px)';
-                brokenDiv.querySelector('.right-h').style.transform = 'rotate(60deg) translate(20px, 50px)';
-                brokenDiv.style.opacity = '0';
-            }, 500);
-
-            setTimeout(() => {
-                intro.style.display = 'none';
-                document.getElementById('call-screen').style.display = 'flex';
-            }, 2500);
+                startSequence();
+            }, 2000);
         }
 
-        function startConversation() {
-            const controls = document.getElementById('call-controls');
-            const dialog = document.getElementById('call-dialog');
-            controls.style.display = 'none';
-            dialog.style.display = 'block';
-
-            const script = [
-                { name: "Aarvi", text: "Hello Siva…" },
-                { name: "Siva", text: "Haan babu…" },
-                { name: "Aarvi", text: "Mai hamesha ke liye ja rahi hu…" },
-                { name: "Siva", text: "Please Aarvi mujhe chhod ke mat jao, mai pagal ho jaunga…" },
-                { name: "Aarvi", text: "Sorry Siva… ab hum kabhi nahi milenge…" }
-            ];
-
-            let i = 0;
-            const interval = setInterval(() => {
-                if(i < script.length) {
-                    dialog.innerHTML = `<strong style="color:var(--accent)">${script[i].name}:</strong><br>${script[i].text}`;
-                    i++;
-                } else {
-                    clearInterval(interval);
-                    endCall();
-                }
-            }, 3000);
+        function startSequence() {
+            document.getElementById('intro-overlay').style.display = 'none';
+            document.getElementById('breakup-screen').style.display = 'none';
+            startCall();
         }
 
-        function endCall() {
-            document.getElementById('call-screen').style.opacity = '0';
-            setTimeout(() => {
-                document.getElementById('call-screen').style.display = 'none';
-                openMainSite();
-            }, 1000);
-        }
-
-        function openMainSite() {
-            const main = document.getElementById('main-content');
-            main.style.display = 'block';
-            setTimeout(() => { 
-                main.style.opacity = '1'; 
-                document.getElementById('bg-music').play();
-                startTypewriter();
-            }, 100);
-        }
-
-        // --- TYPEWRITER ---
-        const phrases = [
-            "Kuch log sirf yaadon mein reh jaate hain…",
-            "Hum chaah kar bhi tumhare nahi rahe…",
-            "Mohabbat aaj bhi hai, par ab saath nahi…"
+        // Call Logic
+        const dialogue = [
+            { t: "Aarvi: Hello Siva…", d: 2000 },
+            { t: "Siva: Haan babu…", d: 2000 },
+            { t: "Aarvi: Mai hamesha ke liye ja rahi hu…", d: 3000 },
+            { t: "Siva: Please Aarvi mujhe chhod ke mat jao, mai pagal ho jaunga…", d: 4000 },
+            { t: "Aarvi: Sorry Siva… ab hum kabhi nahi milenge…", d: 3000 }
         ];
-        let pIdx = 0;
-        function startTypewriter() {
-            let charIdx = 0;
-            const target = document.getElementById('typewriter');
-            target.innerHTML = "";
-            const text = phrases[pIdx];
+
+        function startCall() {
+            const ui = document.getElementById('call-ui');
+            const box = document.getElementById('call-dialogue');
+            ui.style.display = 'flex';
             
-            const timer = setInterval(() => {
-                target.innerHTML += text[charIdx];
-                charIdx++;
-                if(charIdx >= text.length) {
-                    clearInterval(timer);
+            let i = 0;
+            function nextLine() {
+                if(i < dialogue.length) {
+                    box.innerText = dialogue[i].t;
                     setTimeout(() => {
-                        pIdx = (pIdx + 1) % phrases.length;
-                        startTypewriter();
-                    }, 2000);
+                        i++;
+                        nextLine();
+                    }, dialogue[i].d);
+                } else {
+                    ui.style.display = 'none';
+                    initMainSite();
                 }
-            }, 100);
+            }
+            nextLine();
         }
 
-        // --- CONTENT HELPERS ---
-        let currentPhoto = 1;
-        function changePhoto() {
-            currentPhoto = currentPhoto >= 10 ? 1 : currentPhoto + 1;
-            const container = document.getElementById('photo-memories');
-            container.style.opacity = '0';
-            setTimeout(() => {
-                container.style.backgroundImage = `url('photo${currentPhoto}.jpg')`;
-                container.style.opacity = '1';
-            }, 300);
+        function initMainSite() {
+            document.getElementById('main-site').style.display = 'block';
+            bgMusic.play().catch(() => {
+                document.addEventListener('click', () => bgMusic.play(), {once: true});
+            });
+            startTypewriter();
         }
 
-        function playVideo(id) {
-            const vids = document.querySelectorAll('video');
-            const bgMusic = document.getElementById('bg-music');
-            
-            vids.forEach(v => {
-                if(v.id !== id) v.pause();
+        // Audio/Video State Management
+        videos.forEach(vid => {
+            vid.addEventListener('play', () => {
+                bgMusic.pause();
+                shayariAudio.pause();
+                videos.forEach(otherVid => {
+                    if (otherVid !== vid) {
+                        otherVid.pause();
+                        otherVid.currentTime = 0;
+                    }
+                });
             });
 
-            const target = document.getElementById(id);
-            if(target.paused) {
-                target.play();
-                bgMusic.pause();
-                target.onended = () => bgMusic.play();
-            } else {
-                target.pause();
-                bgMusic.play();
-            }
-        }
-
-        function shayariTap(el) {
-            triggerThunder();
-            document.getElementById('tap-sound').currentTime = 0;
-            document.getElementById('tap-sound').play();
-            for(let i=0; i<10; i++) {
-                heartParticles.push({
-                    x: event.clientX, y: event.clientY,
-                    vx: (Math.random()-0.5)*8, vy: (Math.random()-0.5)*8, alpha: 1
-                });
-            }
-        }
-
-        function finalGoodbye() {
-            document.getElementById('final-l').style.transform = 'rotate(-80deg) translate(-50px, 100px)';
-            document.getElementById('final-r').style.transform = 'rotate(80deg) translate(50px, 100px)';
-            document.getElementById('final-heart').style.opacity = '0';
-            document.getElementById('final-heart').style.transition = '2s';
-            
-            let vol = 1;
-            const fade = setInterval(() => {
-                vol -= 0.05;
-                if(vol <= 0) {
-                    clearInterval(fade);
-                    document.getElementById('bg-music').pause();
-                } else {
-                    document.getElementById('bg-music').volume = vol;
+            vid.addEventListener('pause', () => {
+                if (![...videos].some(v => !v.paused)) {
+                    bgMusic.play();
                 }
-            }, 200);
+            });
+
+            vid.addEventListener('ended', () => {
+                bgMusic.play();
+            });
+        });
+
+        function playShayari() {
+            videos.forEach(v => v.pause());
+            bgMusic.pause();
+            shayariAudio.currentTime = 0;
+            shayariAudio.play();
+            
+            shayariAudio.onended = () => {
+                if (![...videos].some(v => !v.paused)) {
+                    bgMusic.play();
+                }
+            };
+        }
+
+        // Typewriter
+        const texts = ["I miss you every second...", "Why did you leave me?", "My heart is broken...", "Please come back Aarvi..."];
+        let textIdx = 0;
+        function startTypewriter() {
+            const el = document.getElementById('typewriter');
+            let charIdx = 0;
+            let currentText = texts[textIdx];
+            
+            function type() {
+                if(charIdx < currentText.length) {
+                    el.innerHTML += currentText.charAt(charIdx);
+                    charIdx++;
+                    setTimeout(type, 100);
+                } else {
+                    setTimeout(() => {
+                        el.innerHTML = "";
+                        charIdx = 0;
+                        textIdx = (textIdx + 1) % texts.length;
+                        currentText = texts[textIdx];
+                        type();
+                    }, 2000);
+                }
+            }
+            type();
+        }
+
+        function finalExit() {
+            bgMusic.pause();
+            document.getElementById('main-site').innerHTML = `
+                <div style="height:100vh; display:flex; justify-content:center; align-items:center; flex-direction:column; text-align:center;">
+                    <h1 style="color:#555; font-weight:lighter;">... Alvida ...</h1>
+                    <p style="margin-top:20px; color:#333;">The end of a story.</p>
+                </div>
+            `;
+            setTimeout(() => {
+                window.close();
+                document.body.style.background = "#000";
+                document.body.innerHTML = "";
+            }, 3000);
         }
     </script>
 </body>
-</html>
+    </html>
