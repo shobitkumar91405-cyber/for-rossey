@@ -1,594 +1,419 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Divya Birthday Bhakti Mandir</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Ritika 💖</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-bg: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            --accent-pink: #ff4d94;
+            --accent-purple: #a044ff;
+            --text-white: #ffffff;
+            --glass: rgba(255, 255, 255, 0.1);
+        }
 
-<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
 
-/* ======================================================
-   GLOBAL VARIABLES
-====================================================== */
-:root{
-  --gold:#ffd166;
-  --saffron:#ff9f1c;
-  --deep:#5a1a01;
-  --cream:#fff6e0;
-  --shadow:rgba(0,0,0,0.25);
-}
+        body {
+            background: var(--primary-bg);
+            color: var(--text-white);
+            overflow: hidden; /* Prevent scrolling during animations */
+            height: 100vh;
+        }
 
-/* ======================================================
-   RESET
-====================================================== */
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:"Segoe UI",sans-serif;
-}
+        /* --- Header Elements --- */
+        .header-top {
+            position: fixed;
+            top: 20px;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 20px;
+            z-index: 1000;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
 
-body{
-  background:radial-gradient(circle at top,#fff9e8,#f2e2c4,#e6d3a3);
-  color:#3b2f2f;
-  overflow-x:hidden;
-}
+        .insta-handle a {
+            color: white;
+            text-decoration: none;
+        }
 
-/* ======================================================
-   INTRO SCREEN
-====================================================== */
-#intro{
-  position:fixed;
-  inset:0;
-  background:linear-gradient(#fff7dc,#f5e1b5);
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  z-index:9999;
-}
+        /* --- Decorative Flags --- */
+        .flags-container {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            z-index: 999;
+        }
 
-#intro h1{
-  font-size:48px;
-  color:var(--deep);
-  text-shadow:0 0 25px var(--gold);
-  animation:fadeIn 3s ease forwards;
-}
+        .flag {
+            width: 30px;
+            height: 45px;
+            background: var(--accent-pink);
+            clip-path: polygon(0% 0%, 100% 0%, 50% 100%);
+            animation: swing 2s ease-in-out infinite alternate;
+            transform-origin: top;
+        }
 
-#intro p{
-  margin-top:15px;
-  font-size:20px;
-  opacity:0;
-  animation:fadeIn 3s ease forwards 1.5s;
-}
+        @keyframes swing { from { transform: rotate(-10deg); } to { transform: rotate(10deg); } }
 
-#enterBtn{
-  margin-top:40px;
-  padding:18px 50px;
-  font-size:18px;
-  border:none;
-  border-radius:40px;
-  background:linear-gradient(45deg,var(--saffron),var(--gold));
-  box-shadow:0 15px 40px var(--shadow);
-  cursor:pointer;
-  animation:pulse 2s infinite;
-}
+        /* --- Section Management --- */
+        section {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+            transition: transform 0.8s cubic-bezier(0.65, 0, 0.35, 1), opacity 0.5s;
+            transform: translateY(100%);
+            opacity: 0;
+            visibility: hidden;
+        }
 
-/* ======================================================
-   BELLS
-====================================================== */
-.bell{
-  position:absolute;
-  top:-30px;
-  width:70px;
-  height:70px;
-  border-radius:50%;
-  background:radial-gradient(circle,#ffd166,#ff9f1c);
-  animation:swing 3s infinite ease-in-out;
-}
+        section.active {
+            transform: translateY(0);
+            opacity: 1;
+            visibility: visible;
+        }
 
-.bell.left{left:8%}
-.bell.right{right:8%}
+        /* --- UI Components --- */
+        .btn-premium {
+            background: linear-gradient(45deg, var(--accent-pink), var(--accent-purple));
+            border: none;
+            padding: 15px 40px;
+            color: white;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(255, 77, 148, 0.4);
+            transition: 0.3s;
+            margin-top: 20px;
+            text-transform: uppercase;
+        }
 
-/* ======================================================
-   MAIN CONTAINER
-====================================================== */
-#main{
-  display:none;
-}
+        .btn-premium:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 25px var(--accent-pink);
+        }
 
-/* ======================================================
-   HEADER
-====================================================== */
-header{
-  text-align:center;
-  padding:60px 20px;
-}
+        .glass-card {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.2);
+            max-width: 90%;
+            width: 400px;
+        }
 
-header h2{
-  font-size:38px;
-  color:var(--deep);
-}
+        /* --- Specific Section Styles --- */
+        
+        /* Section 1: Landing */
+        .teddy-box { font-size: 100px; animation: float 3s ease-in-out infinite; }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
 
-header span{
-  display:block;
-  margin-top:10px;
-  color:#6b4a2b;
-  letter-spacing:1px;
-}
+        /* Section 3: Cake */
+        .cake-container { position: relative; cursor: pointer; }
+        .candle { width: 10px; height: 30px; background: #ffd700; margin: 0 auto; position: relative; }
+        .flame { 
+            width: 15px; height: 20px; background: orange; border-radius: 50% 50% 20% 20%;
+            position: absolute; top: -15px; left: -2.5px; animation: flicker 0.1s infinite;
+        }
+        @keyframes flicker { 0% { opacity: 0.8; } 50% { opacity: 1; } 100% { opacity: 0.9; } }
+        .flame.blown { display: none; }
 
-/* ======================================================
-   NAME SECTION
-====================================================== */
-#names{
-  text-align:center;
-  padding:40px 20px;
-}
+        /* Section 4: Balloons */
+        .balloon-grid { display: flex; gap: 20px; }
+        .balloon { 
+            font-size: 50px; cursor: pointer; transition: 0.2s; 
+            animation: float 4s infinite ease-in-out;
+        }
+        .balloon:nth-child(even) { animation-delay: 1s; }
+        .balloon.popped { transform: scale(3); opacity: 0; pointer-events: none; }
 
-#names h3{
-  font-size:32px;
-  color:#7a1f1f;
-}
+        /* Section 7: Memory Game */
+        .memory-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .memory-card {
+            width: 60px;
+            height: 60px;
+            background: var(--accent-purple);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        .memory-card.flipped { background: white; color: var(--accent-pink); }
 
-#names p{
-  margin-top:10px;
-  font-size:18px;
-}
+        /* --- Confetti Canvas --- */
+        #confetti-canvas {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 1001;
+        }
 
-/* ======================================================
-   DEITY IMAGE
-====================================================== */
-#deity{
-  max-width:500px;
-  margin:40px auto;
-  padding:20px;
-}
-
-#deity img{
-  width:100%;
-  border-radius:25px;
-  box-shadow:0 25px 60px var(--shadow);
-  animation:glow 4s infinite alternate;
-}
-
-/* ======================================================
-   DIYA
-====================================================== */
-#diya{
-  display:flex;
-  justify-content:center;
-  margin:60px 0;
-}
-
-.flame{
-  width:22px;
-  height:32px;
-  background:radial-gradient(circle,#ffd166,#ff9f1c,#ff6f00);
-  border-radius:50%;
-  margin:0 12px;
-  animation:flicker 1s infinite;
-}
-
-/* ======================================================
-   BIRTHDAY CAKE PLACEHOLDER
-====================================================== */
-#cake{
-  text-align:center;
-  padding:60px 20px;
-}
-
-#cake h2{
-  font-size:34px;
-  color:#b02a2a;
-}
-
-#cake p{
-  margin-top:10px;
-}
-
-/* ======================================================
-   ANIMATIONS
-====================================================== */
-@keyframes fadeIn{
-  from{opacity:0;transform:translateY(20px)}
-  to{opacity:1;transform:none}
-}
-
-@keyframes pulse{
-  0%{transform:scale(1)}
-  50%{transform:scale(1.08)}
-  100%{transform:scale(1)}
-}
-
-@keyframes swing{
-  0%{transform:rotate(0deg)}
-  50%{transform:rotate(12deg)}
-  100%{transform:rotate(0deg)}
-}
-
-@keyframes glow{
-  from{box-shadow:0 0 25px gold}
-  to{box-shadow:0 0 60px orange}
-}
-
-@keyframes flicker{
-  0%{transform:scaleY(1)}
-  50%{transform:scaleY(1.3)}
-  100%{transform:scaleY(1)}
-}
-
-</style>
+        /* Music Player */
+        .music-player {
+            margin: 10px 0;
+            padding: 10px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+        }
+    </style>
 </head>
-
 <body>
 
-<!-- INTRO -->
-<div id="intro">
-  <div class="bell left"></div>
-  <div class="bell right"></div>
-  <h1>🕉️ ॐ श्री कृष्णाय नमः 🕉️</h1>
-  <p>Divine Birthday Bhakti Mandir</p>
-  <button id="enterBtn">Enter Mandir 🎂</button>
-</div>
+    <canvas id="confetti-canvas"></canvas>
 
-<!-- MAIN -->
-<div id="main">
+    <div class="header-top">
+        <div class="insta-handle"><a href="#"><i class="fab fa-instagram"></i> @smss1708 </a></div>
+        <div>Made with ❤️ by Sivasingh</div>
+    </div>
 
-<header>
-  <h2>Divya Birthday Bhakti Mandir</h2>
-  <span>श्रद्धा • प्रेम • आशीर्वाद</span>
-</header>
+    <div class="flags-container">
+        <div class="flag" style="background:#ff4d94"></div>
+        <div class="flag" style="background:#a044ff"></div>
+        <div class="flag" style="background:#ffed4d"></div>
+        <div class="flag" style="background:#4dff88"></div>
+        <div class="flag" style="background:#4da6ff"></div>
+    </div>
 
-<section id="names">
-  <h3>Sivasingh ❤️ Pallavi</h3>
-  <p>With Divine Blessings</p>
-</section>
+    <section id="sec-1" class="active">
+        <div class="teddy-box">🧸</div>
+        <h1 style="font-size: 2.5rem; margin: 15px 0;">A Cutiepie Was Born Today 💖</h1>
+        <p>Yes, it’s YOU Ritika! A little surprise awaits…</p>
+        <button class="btn-premium" onclick="nextSection(2)">🎁 Start the Surprise</button>
+    </section>
 
-<section id="deity">
-  <img src="gif1.gif">
-</section>
+    <section id="sec-2">
+        <h1 style="font-size: 3rem;">You are a Cutiee 💕</h1>
+        <div id="heart-rain" style="font-size: 50px;">💖💖💖</div>
+        <button class="btn-premium" onclick="nextSection(3)">Next →</button>
+    </section>
 
-<section id="diya">
-  <div class="flame"></div>
-  <div class="flame"></div>
-  <div class="flame"></div>
-</section>
+    <section id="sec-3">
+        <div class="cake-container">
+            <div class="candle"><div class="flame" id="main-flame"></div></div>
+            <div style="font-size: 80px;">🎂</div>
+        </div>
+        <h1 style="margin: 20px 0;">Happy Birthday Ritika 🎉</h1>
+        <button class="btn-premium" id="blow-btn" onclick="blowCandle()">Blow the Candle</button>
+    </section>
 
-<section id="cake">
-  <h2>🎂 Happy Birthday 🎂</h2>
-  <p>Bhagwan ki kripa sada bani rahe</p>
-</section>
+    <section id="sec-4">
+        <h3>Pop all 4 balloons 🎈</h3>
+        <div class="balloon-grid">
+            <div class="balloon" onclick="popBalloon(this)">🎈</div>
+            <div class="balloon" onclick="popBalloon(this)">🎈</div>
+            <div class="balloon" onclick="popBalloon(this)">🎈</div>
+            <div class="balloon" onclick="popBalloon(this)">🎈</div>
+        </div>
+    </section>
 
-</div>
+    <section id="sec-5">
+        <div class="glass-card">
+            <h2>Special Message Card 💌</h2>
+            <p style="margin-top: 15px; line-height: 1.6;">
+                Lots of love for you Ritika ❤️<br>
+                May your smile always shine brighter than the stars. <br>
+                Stay happy, stay blessed.
+            </p>
+            <button class="btn-premium" onclick="location.reload()">Replay Animation</button>
+            <button class="btn-premium" style="background:none; border:1px solid white;" onclick="nextSection(6)">Continue</button>
+        </div>
+    </section>
 
-<script>
-const intro=document.getElementById("intro");
-const main=document.getElementById("main");
-document.getElementById("enterBtn").onclick=()=>{
-  intro.style.display="none";
-  main.style.display="block";
-}
-</script>
+    <section id="sec-6">
+        <h3>Some Sweet Moments 💞</h3>
+        <div class="glass-card" style="margin-top:20px;">
+            <div id="moment-text">"Your kindness is a gift to the world"</div>
+            <p style="font-size: 0.8rem; margin-top:10px;">(Imagine cute memories here)</p>
+        </div>
+        <button class="btn-premium" onclick="nextSection(7)">Play Game</button>
+    </section>
 
+    <section id="sec-7">
+        <h3>Memory Game 🧠</h3>
+        <p>Pairs found: <span id="pairs-count">0</span> | Moves: <span id="moves-count">0</span></p>
+        <div class="memory-grid" id="game-grid">
+            </div>
+    </section>
+
+    <section id="sec-8">
+        <h3>Romantic Melodies 🎵</h3>
+        <div class="glass-card" style="width: 100%; max-width: 350px;">
+            <div class="music-player">
+                <span>Song 1</span>
+                <audio controls class="bday-song"><source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg"></audio>
+            </div>
+            <div class="music-player">
+                <span>Song 2</span>
+                <audio controls class="bday-song"><source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" type="audio/mpeg"></audio>
+            </div>
+        </div>
+        <button class="btn-premium" onclick="nextSection(9)">Final Message</button>
+    </section>
+
+    <section id="sec-9">
+        <div class="teddy-box">👋🧸</div>
+        <h1>Once again,<br>Happy Birthday Ritika 💖</h1>
+        <p>Hope you loved this surprise!</p>
+        <button class="btn-premium" onclick="location.reload()">Replay Website</button>
+        <div style="margin-top: 30px; opacity: 0.7;">
+            <p>Made with love by Sivasingh</p>
+            <i class="fab fa-instagram"></i> @your_instagram_username
+        </div>
+    </section>
+
+    <script>
+        let currentSection = 1;
+        const totalSections = 9;
+
+        function nextSection(secNum) {
+            document.getElementById(`sec-${currentSection}`).classList.remove('active');
+            currentSection = secNum;
+            document.getElementById(`sec-${currentSection}`).classList.add('active');
+            
+            if(secNum === 2) startConfetti();
+            if(secNum === 7) initMemoryGame();
+        }
+
+        // --- Blow Candle Logic ---
+        function blowCandle() {
+            document.getElementById('main-flame').classList.add('blown');
+            startConfetti();
+            setTimeout(() => nextSection(4), 2000);
+        }
+
+        // --- Balloon Pop Logic ---
+        let poppedCount = 0;
+        function popBalloon(el) {
+            if(!el.classList.contains('popped')) {
+                el.classList.add('popped');
+                poppedCount++;
+                if(poppedCount === 4) {
+                    startConfetti();
+                    setTimeout(() => nextSection(5), 1000);
+                }
+            }
+        }
+
+        // --- Memory Game Logic ---
+        function initMemoryGame() {
+            const grid = document.getElementById('game-grid');
+            const icons = ['❤️', '🎁', '🎂', '✨', '❤️', '🎁', '🎂', '✨'];
+            icons.sort(() => Math.random() - 0.5);
+            grid.innerHTML = '';
+            
+            icons.forEach(icon => {
+                const card = document.createElement('div');
+                card.className = 'memory-card';
+                card.dataset.icon = icon;
+                card.innerHTML = '?';
+                card.onclick = function() { flipCard(this); };
+                grid.appendChild(card);
+            });
+        }
+
+        let flippedCards = [];
+        function flipCard(card) {
+            if(flippedCards.length < 2 && !card.classList.contains('flipped')) {
+                card.classList.add('flipped');
+                card.innerHTML = card.dataset.icon;
+                flippedCards.push(card);
+                
+                if(flippedCards.length === 2) {
+                    setTimeout(checkMatch, 500);
+                }
+            }
+        }
+
+        function checkMatch() {
+            if(flippedCards[0].dataset.icon === flippedCards[1].dataset.icon) {
+                document.getElementById('pairs-count').innerText = parseInt(document.getElementById('pairs-count').innerText) + 1;
+                if(document.getElementById('pairs-count').innerText == "4") {
+                    setTimeout(() => nextSection(8), 1000);
+                }
+            } else {
+                flippedCards.forEach(c => {
+                    c.classList.remove('flipped');
+                    c.innerHTML = '?';
+                });
+            }
+            flippedCards = [];
+            document.getElementById('moves-count').innerText = parseInt(document.getElementById('moves-count').innerText) + 1;
+        }
+
+        // --- Confetti Logic ---
+        const canvas = document.getElementById('confetti-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function startConfetti() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            for(let i=0; i<100; i++) {
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height - canvas.height,
+                    size: Math.random() * 7 + 3,
+                    color: `hsl(${Math.random() * 360}, 70%, 60%)`,
+                    speed: Math.random() * 3 + 2
+                });
+            }
+            requestAnimationFrame(updateConfetti);
+        }
+
+        function updateConfetti() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach((p, i) => {
+                p.y += p.speed;
+                ctx.fillStyle = p.color;
+                ctx.fillRect(p.x, p.y, p.size, p.size);
+            });
+            if(particles.length > 0) requestAnimationFrame(updateConfetti);
+        }
+
+        // --- Music Auto-Pause Logic ---
+        const audios = document.querySelectorAll('.bday-song');
+        audios.forEach(audio => {
+            audio.addEventListener('play', () => {
+                audios.forEach(other => {
+                    if(other !== audio) {
+                        other.pause();
+                        other.currentTime = 0;
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
-<!-- ====================== PART 2 : ADD-ON START ====================== -->
-
-<style>
-/* FLOWER RAIN */
-.flower{
-  position:fixed;
-  top:-50px;
-  font-size:26px;
-  animation:fall linear infinite;
-  pointer-events:none;
-  z-index:5;
-}
-@keyframes fall{
-  to{
-    transform:translateY(110vh) rotate(360deg);
-    opacity:0;
-  }
-}
-
-/* HEART PARTICLES */
-.heart{
-  position:fixed;
-  color:#ff4d6d;
-  animation:float 6s linear infinite;
-  z-index:4;
-}
-@keyframes float{
-  from{transform:translateY(0) scale(1);opacity:1}
-  to{transform:translateY(-220px) scale(0.3);opacity:0}
-}
-
-/* CAKE */
-.cake-box{
-  width:260px;
-  margin:40px auto;
-  background:linear-gradient(#ffb703,#fb8500);
-  border-radius:20px;
-  padding:25px;
-  box-shadow:0 25px 50px rgba(0,0,0,.4);
-  text-align:center;
-}
-.candle{
-  width:14px;
-  height:50px;
-  background:white;
-  margin:0 auto;
-  position:relative;
-}
-.candle::after{
-  content:"";
-  position:absolute;
-  top:-18px;
-  left:-6px;
-  width:26px;
-  height:26px;
-  background:radial-gradient(circle,#ffd166,#ff7b00);
-  border-radius:50%;
-  animation:flicker 1s infinite;
-}
-@keyframes flicker{
-  0%{transform:scale(1)}
-  50%{transform:scale(1.2)}
-  100%{transform:scale(1)}
-}
-.blow{
-  margin-top:20px;
-  padding:10px 30px;
-  border:none;
-  border-radius:30px;
-  background:#ef233c;
-  color:white;
-  font-size:16px;
-  cursor:pointer;
-}
-
-/* MUSIC PANEL */
-.music-panel{
-  text-align:center;
-  padding:50px 20px;
-}
-.music-panel button{
-  margin:10px;
-  padding:12px 30px;
-  border:none;
-  border-radius:30px;
-  background:linear-gradient(45deg,#ff9f1c,#ffd166);
-  color:#000;
-  font-weight:bold;
-  cursor:pointer;
-}
-
-/* GIF GALLERY */
-.gallery{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
-  gap:20px;
-  padding:40px 20px;
-}
-.gallery img{
-  width:100%;
-  border-radius:20px;
-  box-shadow:0 15px 35px rgba(0,0,0,.35);
-  animation:glow 4s infinite alternate;
-}
-@keyframes glow{
-  from{box-shadow:0 0 10px #ffd166}
-  to{box-shadow:0 0 30px #ff006e}
-}
-</style>
-
-<!-- 🎂 CAKE SECTION -->
-<div class="cake-box">
-  <div class="candle" id="candle"></div>
-  <button class="blow" onclick="blowCandle()">Blow Candle 🎂</button>
-</div>
-
-<!-- 🎶 BHAJAN SECTION -->
-<div class="music-panel">
-  <h2>🙏 Bhajan Darshan 🙏</h2>
-  <button onclick="playSong(1)">Bhajan 1</button>
-  <button onclick="playSong(2)">Bhajan 2</button>
-  <button onclick="playSong(3)">Bhajan 3</button>
-</div>
-
-<!-- 🖼️ GIF GALLERY -->
-<div class="gallery">
-  <img src="gif1.gif">
-  <img src="gif2.gif">
-  <img src="gif3.gif">
-  <img src="gif4.gif">
-  <img src="gif5.gif">
-  <img src="gif6.gif">
-  <img src="gif7.gif">
-  <img src="gif8.gif">
-  <img src="gif9.gif">
-  <img src="gif10.gif">
-  <img src="gif11.gif">
-  <img src="gif12.gif">
-</div>
-
-<script>
-/* FLOWER RAIN */
-setInterval(()=>{
-  const f=document.createElement("div");
-  f.className="flower";
-  f.innerHTML="🌸";
-  f.style.left=Math.random()*100+"vw";
-  f.style.animationDuration=5+Math.random()*5+"s";
-  document.body.appendChild(f);
-  setTimeout(()=>f.remove(),10000);
-},500);
-
-/* HEART PARTICLES */
-setInterval(()=>{
-  const h=document.createElement("div");
-  h.className="heart";
-  h.innerHTML="💖";
-  h.style.left=Math.random()*100+"vw";
-  h.style.bottom="0";
-  document.body.appendChild(h);
-  setTimeout(()=>h.remove(),6000);
-},700);
-
-/* CANDLE BLOW */
-function blowCandle(){
-  document.getElementById("candle").style.display="none";
-  alert("🎉 Candle Blown! Divine Blessings 🎉");
-}
-
-/* MUSIC SYSTEM */
-const songs=[
-  new Audio("song1.mp3"),
-  new Audio("song2.mp3"),
-  new Audio("song3.mp3")
-];
-function playSong(n){
-  songs.forEach(s=>{s.pause();s.currentTime=0});
-  songs[n-1].play();
-}
-</script>
-
-<!-- ====================== PART 2 : ADD-ON END ====================== -->
-<!-- ====================== PART 3 : DIVINE EXPERIENCE START ====================== -->
-
-<style>
-/* TEMPLE BACKDROP */
-.temple{
-  position:relative;
-  padding:80px 20px;
-  background:radial-gradient(circle at top,#2b2f3a,#0b0e14 70%);
-  text-align:center;
-  overflow:hidden;
-}
-
-/* DIYA */
-.diya{
-  width:120px;
-  height:60px;
-  background:#c97c5d;
-  border-radius:0 0 80px 80px;
-  margin:0 auto;
-  position:relative;
-  box-shadow:0 20px 40px rgba(0,0,0,.5);
-}
-.flame{
-  width:30px;
-  height:50px;
-  background:radial-gradient(circle,#ffd166,#ff6b35);
-  position:absolute;
-  top:-45px;
-  left:45px;
-  border-radius:50% 50% 50% 50%;
-  animation:flame 1s infinite;
-}
-@keyframes flame{
-  0%{transform:scale(1) translateY(0)}
-  50%{transform:scale(1.1) translateY(-3px)}
-  100%{transform:scale(1) translateY(0)}
-}
-
-/* BELL */
-.bell{
-  font-size:60px;
-  cursor:pointer;
-  margin:40px 0;
-  animation:swing 3s infinite ease-in-out;
-}
-@keyframes swing{
-  0%{transform:rotate(0deg)}
-  25%{transform:rotate(10deg)}
-  50%{transform:rotate(0deg)}
-  75%{transform:rotate(-10deg)}
-  100%{transform:rotate(0deg)}
-}
-
-/* MANTRA SCROLL */
-.mantra{
-  height:120px;
-  overflow:hidden;
-  color:#ffd166;
-  font-size:20px;
-  line-height:40px;
-  margin:40px auto;
-}
-.mantra p{
-  animation:scroll 18s linear infinite;
-}
-@keyframes scroll{
-  from{transform:translateY(100%)}
-  to{transform:translateY(-100%)}
-}
-
-/* AARTI PANEL */
-.aarti{
-  margin:50px auto;
-  max-width:500px;
-  background:rgba(255,255,255,.05);
-  border-radius:20px;
-  padding:30px;
-  box-shadow:0 20px 50px rgba(0,0,0,.6);
-  color:#ffd166;
-}
-
-/* BLESSING POPUP */
-.blessing{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.85);
-  display:none;
-  align-items:center;
-  justify-content:center;
-  z-index:999;
-}
-.blessing-box{
-  background:linear-gradient(45deg,#ffafcc,#ffd166);
-  color:#000;
-  padding:40px;
-  border-radius:25px;
-  text-align:center;
-  box-shadow:0 30px 80px rgba(0,0,0,.7);
-}
-.blessing-box button{
-  margin-top:20px;
-  padding:12px 30px;
-  border:none;
-  border-radius:30px;
-  background:#ef233c;
-  color:white;
-  font-size:16px;
-  cursor:pointer;
-}
-</style>
-
-<!-- 🛕 TEMPLE EXPERIENCE -->
-<div class="temple">
-
-  <div class="diya">
-    <div class="flame"></div>
-  </div>
-
-  <div class="bell" onclick="ringBell()">🔔</div>
-
-  <div class="mantra">
-    <p>
-      ॐ नमो भगवते वासुदेवाय<br>
-      राधे राधे गोविन्द गोविन्द<br>
-      श्री कृष्ण गोविन्द हरे मुरारी<br>
-      ॐ नमः शिवाय<br>
-      जय श्री राधे कृष्ण
-    </p>
-  </div>
-
-  <div class="aarti">
-    <h2>🪔 Aarti Darshan 🪔</h2>
-    <p>
-      Om Jai Jagdish Hare<br>
-      Swami Jai Jagdish Hare<br>
-      Bhakt Jano Ke Sankat<br>
-      Daas Jano Ke Sankat<br>
-      Kshan Mein Door Kare
