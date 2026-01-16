@@ -3,417 +3,344 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Birthday Ritika 💖</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>For Trishika 🥀</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Quicksand:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-bg: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-            --accent-pink: #ff4d94;
-            --accent-purple: #a044ff;
-            --text-white: #ffffff;
-            --glass: rgba(255, 255, 255, 0.1);
+            --pastel-pink: #ffd1dc;
+            --pastel-peach: #ffeadb;
+            --pastel-lavender: #e6e6fa;
+            --text-color: #7d5a5a;
+            --glass-bg: rgba(255, 255, 255, 0.45);
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
-            background: var(--primary-bg);
-            color: var(--text-white);
-            overflow: hidden; /* Prevent scrolling during animations */
-            height: 100vh;
-        }
-
-        /* --- Header Elements --- */
-        .header-top {
-            position: fixed;
-            top: 20px;
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            padding: 0 20px;
-            z-index: 1000;
-            font-size: 0.9rem;
-            opacity: 0.8;
-        }
-
-        .insta-handle a {
-            color: white;
-            text-decoration: none;
-        }
-
-        /* --- Decorative Flags --- */
-        .flags-container {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            display: flex;
-            justify-content: space-around;
-            z-index: 999;
-        }
-
-        .flag {
-            width: 30px;
-            height: 45px;
-            background: var(--accent-pink);
-            clip-path: polygon(0% 0%, 100% 0%, 50% 100%);
-            animation: swing 2s ease-in-out infinite alternate;
-            transform-origin: top;
-        }
-
-        @keyframes swing { from { transform: rotate(-10deg); } to { transform: rotate(10deg); } }
-
-        /* --- Section Management --- */
-        section {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
+            font-family: 'Quicksand', sans-serif;
+            background: linear-gradient(135deg, var(--pastel-pink), var(--pastel-peach), var(--pastel-lavender));
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            min-height: 100vh;
+            overflow-x: hidden;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
+            color: var(--text-color);
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Floating Hearts Background */
+        .heart-particle {
+            position: fixed;
+            font-size: 20px;
+            pointer-events: none;
+            z-index: 0;
+            animation: floatUp 6s linear infinite;
+            opacity: 0.6;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(110vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* Header Styles */
+        header {
             text-align: center;
             padding: 20px;
-            transition: transform 0.8s cubic-bezier(0.65, 0, 0.35, 1), opacity 0.5s;
-            transform: translateY(100%);
-            opacity: 0;
-            visibility: hidden;
+            z-index: 10;
+            width: 100%;
         }
 
-        section.active {
-            transform: translateY(0);
-            opacity: 1;
-            visibility: visible;
+        header p {
+            font-size: 14px;
+            font-weight: 600;
         }
 
-        /* --- UI Components --- */
-        .btn-premium {
-            background: linear-gradient(45deg, var(--accent-pink), var(--accent-purple));
-            border: none;
-            padding: 15px 40px;
-            color: white;
-            border-radius: 50px;
-            font-size: 1.1rem;
+        header a {
+            color: #d88fa5;
+            text-decoration: none;
+            font-size: 16px;
             font-weight: bold;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(255, 77, 148, 0.4);
-            transition: 0.3s;
+            display: inline-block;
+            transition: transform 0.3s;
+        }
+
+        header a:hover { transform: scale(1.1); }
+
+        /* Card System */
+        .container {
+            width: 90%;
+            max-width: 400px;
+            z-index: 5;
             margin-top: 20px;
-            text-transform: uppercase;
+            margin-bottom: 50px;
         }
 
-        .btn-premium:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 25px var(--accent-pink);
-        }
-
-        .glass-card {
-            background: var(--glass);
+        .card {
+            background: var(--glass-bg);
             backdrop-filter: blur(10px);
-            padding: 30px;
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 30px;
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+            display: none;
+            animation: slideUp 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .card.active { display: block; }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .gif-placeholder {
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 20px;
+            display: block;
             border-radius: 20px;
-            border: 1px solid rgba(255,255,255,0.2);
-            max-width: 90%;
-            width: 400px;
         }
 
-        /* --- Specific Section Styles --- */
-        
-        /* Section 1: Landing */
-        .teddy-box { font-size: 100px; animation: float 3s ease-in-out infinite; }
-        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
-
-        /* Section 3: Cake */
-        .cake-container { position: relative; cursor: pointer; }
-        .candle { width: 10px; height: 30px; background: #ffd700; margin: 0 auto; position: relative; }
-        .flame { 
-            width: 15px; height: 20px; background: orange; border-radius: 50% 50% 20% 20%;
-            position: absolute; top: -15px; left: -2.5px; animation: flicker 0.1s infinite;
+        h2 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2rem;
+            margin-bottom: 15px;
+            color: #b56c80;
         }
-        @keyframes flicker { 0% { opacity: 0.8; } 50% { opacity: 1; } 100% { opacity: 0.9; } }
-        .flame.blown { display: none; }
 
-        /* Section 4: Balloons */
-        .balloon-grid { display: flex; gap: 20px; }
-        .balloon { 
-            font-size: 50px; cursor: pointer; transition: 0.2s; 
-            animation: float 4s infinite ease-in-out;
+        p {
+            line-height: 1.6;
+            margin-bottom: 20px;
         }
-        .balloon:nth-child(even) { animation-delay: 1s; }
-        .balloon.popped { transform: scale(3); opacity: 0; pointer-events: none; }
 
-        /* Section 7: Memory Game */
-        .memory-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
+        /* Buttons */
+        .btn {
+            background: #fff;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            color: #d88fa5;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(216, 143, 165, 0.3);
+            transition: all 0.3s ease;
+            font-family: 'Quicksand', sans-serif;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(216, 143, 165, 0.5);
+            background: #fffafa;
+        }
+
+        /* Heart Step Buttons */
+        .step-btns {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
             gap: 10px;
-            margin-top: 20px;
         }
-        .memory-card {
-            width: 60px;
-            height: 60px;
-            background: var(--accent-purple);
-            border-radius: 10px;
+
+        .heart-btn {
+            background: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
-            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            transition: 0.3s;
         }
-        .memory-card.flipped { background: white; color: var(--accent-pink); }
 
-        /* --- Confetti Canvas --- */
-        #confetti-canvas {
+        .heart-btn.clicked {
+            background: #ffd1dc;
+            transform: scale(0.9);
+        }
+
+        /* Message Cards */
+        #step-message-container {
+            margin-top: 20px;
+            min-height: 180px;
+        }
+
+        .step-msg {
+            background: rgba(255, 255, 255, 0.7);
+            padding: 15px;
+            border-radius: 20px;
+            margin-top: 10px;
+            display: none;
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .final-letter {
+            text-align: left;
+            font-size: 0.95rem;
+            white-space: pre-line;
+        }
+
+        #final-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             pointer-events: none;
-            z-index: 1001;
+            z-index: 100;
         }
 
-        /* Music Player */
-        .music-player {
-            margin: 10px 0;
-            padding: 10px;
-            background: rgba(255,255,255,0.05);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            width: 100%;
-        }
+        .hidden { display: none; }
     </style>
 </head>
 <body>
 
-    <canvas id="confetti-canvas"></canvas>
+    <header>
+        <p>Made by sivasingh 💖</p>
+        <a href="https://instagram.com/smss1708" target="_blank">@smss1708</a>
+    </header>
 
-    <div class="header-top">
-        <div class="insta-handle"><a href="#"><i class="fab fa-instagram"></i> @smss1708 </a></div>
-        <div>Made with ❤️ by Sivasingh</div>
-    </div>
-
-    <div class="flags-container">
-        <div class="flag" style="background:#ff4d94"></div>
-        <div class="flag" style="background:#a044ff"></div>
-        <div class="flag" style="background:#ffed4d"></div>
-        <div class="flag" style="background:#4dff88"></div>
-        <div class="flag" style="background:#4da6ff"></div>
-    </div>
-
-    <section id="sec-1" class="active">
-        <div class="teddy-box">🧸</div>
-        <h1 style="font-size: 2.5rem; margin: 15px 0;">A Cutiepie Was Born Today 💖</h1>
-        <p>Yes, it’s YOU Ritika! A little surprise awaits…</p>
-        <button class="btn-premium" onclick="nextSection(2)">🎁 Start the Surprise</button>
-    </section>
-
-    <section id="sec-2">
-        <h1 style="font-size: 3rem;">You are a Cutiee 💕</h1>
-        <div id="heart-rain" style="font-size: 50px;">💖💖💖</div>
-        <button class="btn-premium" onclick="nextSection(3)">Next →</button>
-    </section>
-
-    <section id="sec-3">
-        <div class="cake-container">
-            <div class="candle"><div class="flame" id="main-flame"></div></div>
-            <div style="font-size: 80px;">🎂</div>
+    <div class="container">
+        <div id="screen1" class="card active">
+            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3ZkM2pxbmN6eHpsbmpxbmx2Z2x2Z2x2Z2x2Z2x2Z2x2Z2x2ZyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/8mSclE9bH02u8/giphy.gif" alt="Cute Sad Cat" class="gif-placeholder">
+            <h2>Hey Cutiepie Trishika🥀</h2>
+            <p>Can we talk for a moment?<br>There’s something important I want to tell you...</p>
+            <button class="btn" onclick="nextScreen(1, 2)">Continue ❤️</button>
         </div>
-        <h1 style="margin: 20px 0;">Happy Birthday Ritika 🎉</h1>
-        <button class="btn-premium" id="blow-btn" onclick="blowCandle()">Blow the Candle</button>
-    </section>
 
-    <section id="sec-4">
-        <h3>Pop all 4 balloons 🎈</h3>
-        <div class="balloon-grid">
-            <div class="balloon" onclick="popBalloon(this)">🎈</div>
-            <div class="balloon" onclick="popBalloon(this)">🎈</div>
-            <div class="balloon" onclick="popBalloon(this)">🎈</div>
-            <div class="balloon" onclick="popBalloon(this)">🎈</div>
+        <div id="screen2" class="card">
+            <h2>From my heart...</h2>
+            <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+                <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMG04ZW9sZ204ZW9sZ204ZW9sZ204ZW9sZ204ZW9sZ204ZW9sZyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/X8U9nFqP6yTfG/giphy.gif" style="width: 48%; border-radius: 15px;">
+                <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMHU0dzM2bHc0dzM2bHc0dzM2bHc0dzM2bHc0dzM2bHc0dzM2bHcmZXA9djFfaW50ZXJuYWxfZ2lmX2J5X2lkJmN0PXM/TfS8MAR9ucL2fWAdFd/giphy.gif" style="width: 48%; border-radius: 15px;">
+            </div>
+            <p>Tap to see my message</p>
+            <button class="btn" onclick="nextScreen(2, 3)">Tap ❤️</button>
         </div>
-    </section>
 
-    <section id="sec-5">
-        <div class="glass-card">
-            <h2>Special Message Card 💌</h2>
-            <p style="margin-top: 15px; line-height: 1.6;">
-                Lots of love for you Ritika ❤️<br>
-                May your smile always shine brighter than the stars. <br>
-                Stay happy, stay blessed.
+        <div id="screen3" class="card">
+            <h2>Little Thoughts...</h2>
+            <div class="step-btns">
+                <button class="heart-btn" onclick="revealMsg(0, this)">💖</button>
+                <button class="heart-btn" onclick="revealMsg(1, this)">💗</button>
+                <button class="heart-btn" onclick="revealMsg(2, this)">💓</button>
+                <button class="heart-btn" onclick="revealMsg(3, this)">💝</button>
+                <button class="heart-btn" onclick="revealMsg(4, this)">💕</button>
+            </div>
+
+            <div id="step-message-container">
+                <div id="msg-box" class="step-msg">
+                    <img id="msg-gif" src="" class="gif-placeholder" style="width: 100px; height: 100px;">
+                    <p id="msg-text"></p>
+                </div>
+            </div>
+            
+            <button id="next-to-final" class="btn hidden" onclick="nextScreen(3, 4)">See Final Letter ❤️</button>
+        </div>
+
+        <div id="screen4" class="card">
+            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbzdyY2NnZzdyY2NnZzdyY2NnZzdyY2NnZzdyY2NnZzdyY2NnZyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/L95W4wv8nnb979d1ub/giphy.gif" alt="Sad Bunny" class="gif-placeholder">
+            <h2>I'm Sorry Trishika🥀</h2>
+            <div class="final-letter">
+                Dear Trishika,
+
+                I’ve been sitting here trying to find the perfect words, but honestly, "I'm sorry" is the only thing that matters. I hate that I was the reason for that frown on your face or the stress in your heart. 
+
+                You are my best friend, my favorite person to talk to, and losing our vibe over a mistake is the last thing I ever want. I value you more than I can express in a simple website. Please forgive me for being a bit silly/wrong. Can we go back to being the best duo again?
+
+                Your bestie,
+                sivasingh 🤍
+            </div>
+            <p style="font-size: 12px; margin-top: 20px; font-style: italic;">
+                Some apologies come straight from the heart 💖
             </p>
-            <button class="btn-premium" onclick="location.reload()">Replay Animation</button>
-            <button class="btn-premium" style="background:none; border:1px solid white;" onclick="nextSection(6)">Continue</button>
         </div>
-    </section>
+    </div>
 
-    <section id="sec-6">
-        <h3>Some Sweet Moments 💞</h3>
-        <div class="glass-card" style="margin-top:20px;">
-            <div id="moment-text">"Your kindness is a gift to the world"</div>
-            <p style="font-size: 0.8rem; margin-top:10px;">(Imagine cute memories here)</p>
-        </div>
-        <button class="btn-premium" onclick="nextSection(7)">Play Game</button>
-    </section>
-
-    <section id="sec-7">
-        <h3>Memory Game 🧠</h3>
-        <p>Pairs found: <span id="pairs-count">0</span> | Moves: <span id="moves-count">0</span></p>
-        <div class="memory-grid" id="game-grid">
-            </div>
-    </section>
-
-    <section id="sec-8">
-        <h3>Romantic Melodies 🎵</h3>
-        <div class="glass-card" style="width: 100%; max-width: 350px;">
-            <div class="music-player">
-                <span>Song 1</span>
-                <audio controls class="bday-song"><source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg"></audio>
-            </div>
-            <div class="music-player">
-                <span>Song 2</span>
-                <audio controls class="bday-song"><source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" type="audio/mpeg"></audio>
-            </div>
-        </div>
-        <button class="btn-premium" onclick="nextSection(9)">Final Message</button>
-    </section>
-
-    <section id="sec-9">
-        <div class="teddy-box">👋🧸</div>
-        <h1>Once again,<br>Happy Birthday Ritika 💖</h1>
-        <p>Hope you loved this surprise!</p>
-        <button class="btn-premium" onclick="location.reload()">Replay Website</button>
-        <div style="margin-top: 30px; opacity: 0.7;">
-            <p>Made with love by Sivasingh</p>
-            <i class="fab fa-instagram"></i> @your_instagram_username
-        </div>
-    </section>
+    <div id="final-overlay"></div>
 
     <script>
-        let currentSection = 1;
-        const totalSections = 9;
+        // Floating Hearts Background Logic
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart-particle');
+            heart.innerHTML = ['💖','💗','💓','💕','🌸'][Math.floor(Math.random() * 5)];
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (Math.random() * 3 + 3) + 's';
+            heart.style.fontSize = (Math.random() * 10 + 15) + 'px';
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 6000);
+        }
+        setInterval(createHeart, 400);
 
-        function nextSection(secNum) {
-            document.getElementById(`sec-${currentSection}`).classList.remove('active');
-            currentSection = secNum;
-            document.getElementById(`sec-${currentSection}`).classList.add('active');
+        // Screen Navigation
+        function nextScreen(current, next) {
+            document.getElementById('screen' + current).classList.remove('active');
+            document.getElementById('screen' + next).classList.add('active');
             
-            if(secNum === 2) startConfetti();
-            if(secNum === 7) initMemoryGame();
-        }
-
-        // --- Blow Candle Logic ---
-        function blowCandle() {
-            document.getElementById('main-flame').classList.add('blown');
-            startConfetti();
-            setTimeout(() => nextSection(4), 2000);
-        }
-
-        // --- Balloon Pop Logic ---
-        let poppedCount = 0;
-        function popBalloon(el) {
-            if(!el.classList.contains('popped')) {
-                el.classList.add('popped');
-                poppedCount++;
-                if(poppedCount === 4) {
-                    startConfetti();
-                    setTimeout(() => nextSection(5), 1000);
-                }
+            if(next === 4) {
+                startFinalEffect();
             }
         }
 
-        // --- Memory Game Logic ---
-        function initMemoryGame() {
-            const grid = document.getElementById('game-grid');
-            const icons = ['❤️', '🎁', '🎂', '✨', '❤️', '🎁', '🎂', '✨'];
-            icons.sort(() => Math.random() - 0.5);
-            grid.innerHTML = '';
-            
-            icons.forEach(icon => {
-                const card = document.createElement('div');
-                card.className = 'memory-card';
-                card.dataset.icon = icon;
-                card.innerHTML = '?';
-                card.onclick = function() { flipCard(this); };
-                grid.appendChild(card);
-            });
-        }
+        // Step Messages Logic
+        const messages = [
+            { text: "I know I hurt you...", gif: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbzdyY2NnZzdyY2NnZzdyY2NnZzdyY2NnZzdyY2NnZzdyY2NnZyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/OPU6wUKARA8AU/giphy.gif" },
+            { text: "That was never my intention...", gif: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbzdyY2NnZzdyY2NnZzdyY2NnZzdyY2NnZzdyY2NnZzdyY2NnZyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/7SF5scGB2AFrO/giphy.gif" },
+            { text: "You mean a lot to me, Trishika🥀", gif: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbzdyY2NnZzdyY2NnZzdyY2NnZzdyY2NnZzdyY2NnZzdyY2NnZyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/14412MUKmbQq7m/giphy.gif" },
+            { text: "I’m really sorry for my mistakes...", gif: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbzdyY2NnZzdyY2NnZzdyY2NnZzdyY2NnZzdyY2NnZzdyY2NnZyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/BEob5zFkS7LWQGnQP4/giphy.gif" },
+            { text: "Please forgive your bestie...", gif: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbzdyY2NnZzdyY2NnZzdyY2NnZzdyY2NnZzdyY2NnZzdyY2NnZyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/ISOckXUybVfQ4/giphy.gif" }
+        ];
 
-        let flippedCards = [];
-        function flipCard(card) {
-            if(flippedCards.length < 2 && !card.classList.contains('flipped')) {
-                card.classList.add('flipped');
-                card.innerHTML = card.dataset.icon;
-                flippedCards.push(card);
+        let clickedHearts = 0;
+        function revealMsg(index, btn) {
+            if(btn.classList.contains('clicked')) return;
+            
+            btn.classList.add('clicked');
+            const msgBox = document.getElementById('msg-box');
+            const msgText = document.getElementById('msg-text');
+            const msgGif = document.getElementById('msg-gif');
+
+            msgBox.style.display = 'none';
+            setTimeout(() => {
+                msgText.innerText = messages[index].text;
+                msgGif.src = messages[index].gif;
+                msgBox.style.display = 'block';
+                clickedHearts++;
                 
-                if(flippedCards.length === 2) {
-                    setTimeout(checkMatch, 500);
+                if(clickedHearts === 5) {
+                    document.getElementById('next-to-final').classList.remove('hidden');
                 }
+            }, 50);
+        }
+
+        function startFinalEffect() {
+            // Intensive heart shower at the end
+            for(let i=0; i<30; i++) {
+                setTimeout(createHeart, i * 100);
             }
+            document.body.style.boxShadow = "inset 0 0 100px rgba(255,182,193,0.5)";
         }
-
-        function checkMatch() {
-            if(flippedCards[0].dataset.icon === flippedCards[1].dataset.icon) {
-                document.getElementById('pairs-count').innerText = parseInt(document.getElementById('pairs-count').innerText) + 1;
-                if(document.getElementById('pairs-count').innerText == "4") {
-                    setTimeout(() => nextSection(8), 1000);
-                }
-            } else {
-                flippedCards.forEach(c => {
-                    c.classList.remove('flipped');
-                    c.innerHTML = '?';
-                });
-            }
-            flippedCards = [];
-            document.getElementById('moves-count').innerText = parseInt(document.getElementById('moves-count').innerText) + 1;
-        }
-
-        // --- Confetti Logic ---
-        const canvas = document.getElementById('confetti-canvas');
-        const ctx = canvas.getContext('2d');
-        let particles = [];
-
-        function startConfetti() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            for(let i=0; i<100; i++) {
-                particles.push({
-                    x: Math.random() * canvas.width,
-                    y: Math.random() * canvas.height - canvas.height,
-                    size: Math.random() * 7 + 3,
-                    color: `hsl(${Math.random() * 360}, 70%, 60%)`,
-                    speed: Math.random() * 3 + 2
-                });
-            }
-            requestAnimationFrame(updateConfetti);
-        }
-
-        function updateConfetti() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach((p, i) => {
-                p.y += p.speed;
-                ctx.fillStyle = p.color;
-                ctx.fillRect(p.x, p.y, p.size, p.size);
-            });
-            if(particles.length > 0) requestAnimationFrame(updateConfetti);
-        }
-
-        // --- Music Auto-Pause Logic ---
-        const audios = document.querySelectorAll('.bday-song');
-        audios.forEach(audio => {
-            audio.addEventListener('play', () => {
-                audios.forEach(other => {
-                    if(other !== audio) {
-                        other.pause();
-                        other.currentTime = 0;
-                    }
-                });
-            });
-        });
     </script>
 </body>
 </html>
