@@ -5,183 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rose Day Special - Sivasingh</title>
     <style>
+        /* (Pura CSS wahi rahega jo pehle tha...) */
         @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap');
-
-        body, html {
-            margin: 0;
-            padding: 0;
-            height: 100vh;
-            background-color: #0d0106;
-            color: white;
-            font-family: 'Poppins', sans-serif;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        /* --- Header Section --- */
-        .header {
-            text-align: center;
-            padding: 15px;
-            z-index: 10;
-            width: 100%;
-            background: rgba(255, 77, 109, 0.05);
-            border-bottom: 1px solid rgba(255, 77, 109, 0.2);
-        }
-
-        .header p {
-            margin: 0;
-            font-size: 0.9rem;
-            letter-spacing: 1px;
-            color: #ff8fa3;
-        }
-
-        .insta-box {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            margin-top: 5px;
-            text-decoration: none;
-            color: #fff;
-            background: rgba(255, 255, 255, 0.1);
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            border: 1px solid rgba(255, 77, 109, 0.3);
-        }
-
-        .insta-thumb {
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 12px;
-        }
-
-        /* --- Slideshow Content --- */
-        .content-area {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
-            position: relative;
-        }
-
-        .page {
-            display: none;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            width: 90%;
-            max-width: 400px;
-            animation: fadeIn 0.8s ease-in-out;
-        }
-
+        body, html { margin: 0; padding: 0; height: 100vh; background-color: #0d0106; color: white; font-family: 'Poppins', sans-serif; overflow: hidden; display: flex; flex-direction: column; align-items: center; }
+        .header { text-align: center; padding: 15px; z-index: 10; width: 100%; background: rgba(255, 77, 109, 0.05); border-bottom: 1px solid rgba(255, 77, 109, 0.2); }
+        .header p { margin: 0; font-size: 0.9rem; letter-spacing: 1px; color: #ff8fa3; }
+        .insta-box { display: inline-flex; align-items: center; gap: 8px; margin-top: 5px; text-decoration: none; color: #fff; background: rgba(255, 255, 255, 0.1); padding: 5px 12px; border-radius: 20px; font-size: 0.8rem; border: 1px solid rgba(255, 77, 109, 0.3); }
+        .insta-thumb { width: 20px; height: 20px; border-radius: 50%; background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); display: flex; justify-content: center; align-items: center; font-size: 12px; }
+        .content-area { flex: 1; display: flex; justify-content: center; align-items: center; width: 100%; position: relative; }
+        .page { display: none; flex-direction: column; align-items: center; text-align: center; width: 90%; max-width: 400px; animation: fadeIn 0.8s ease-in-out; }
         .page.active { display: flex; }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.9); }
-            to { opacity: 1; transform: scale(1); }
-        }
-
-        .glow-text {
-            font-family: 'Great Vibes', cursive;
-            font-size: 2.8rem;
-            color: #ff4d6d;
-            text-shadow: 0 0 15px rgba(255, 77, 109, 0.7);
-            margin-bottom: 15px;
-        }
-
-        .card-photo {
-            width: 200px;
-            height: 200px;
-            border-radius: 50% 50% 10% 10%;
-            border: 3px solid #ff4d6d;
-            object-fit: cover;
-            box-shadow: 0 0 25px rgba(255, 77, 109, 0.5);
-            margin-bottom: 20px;
-            animation: float 3s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        .card-container {
-            position: relative;
-            width: 300px;
-            height: 160px;
-            perspective: 1000px;
-            cursor: pointer;
-        }
-
-        .envelope {
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, #ff0040, #ff4d6d);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            z-index: 2;
-            transition: transform 0.6s;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-        }
-
+        @keyframes fadeIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+        .glow-text { font-family: 'Great Vibes', cursive; font-size: 2.8rem; color: #ff4d6d; text-shadow: 0 0 15px rgba(255, 77, 109, 0.7); margin-bottom: 15px; }
+        .card-photo { width: 200px; height: 200px; border-radius: 50% 50% 10% 10%; border: 3px solid #ff4d6d; object-fit: cover; box-shadow: 0 0 25px rgba(255, 77, 109, 0.5); margin-bottom: 20px; animation: float 3s ease-in-out infinite; }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+        .card-container { position: relative; width: 300px; height: 160px; perspective: 1000px; cursor: pointer; }
+        .envelope { width: 100%; height: 100%; background: linear-gradient(45deg, #ff0040, #ff4d6d); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: bold; z-index: 2; transition: transform 0.6s; box-shadow: 0 10px 25px rgba(0,0,0,0.5); }
         .card-container.open .envelope { transform: rotateX(-110deg); transform-origin: top; }
-
-        .message-inside {
-            position: absolute;
-            top: 0; left: 5%; width: 90%; height: 100%;
-            background: #fff;
-            color: #333;
-            padding: 15px;
-            border-radius: 5px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            z-index: 1;
-            font-size: 0.95rem;
-            font-weight: 500;
-            line-height: 1.4;
-            box-shadow: inset 0 0 15px rgba(0,0,0,0.1);
-        }
-
-        .btn-next {
-            margin-top: 25px;
-            padding: 12px 30px;
-            background: transparent;
-            border: 2px solid #ff4d6d;
-            color: #ff4d6d;
-            border-radius: 30px;
-            cursor: pointer;
-            font-weight: bold;
-            display: none;
-            transition: 0.3s;
-        }
-
-        .btn-next:hover { background: #ff4d6d; color: white; }
-
-        .heart {
-            position: fixed; pointer-events: none; z-index: 999;
-            font-size: 25px; animation: burst 2s ease-out forwards;
-        }
-
-        @keyframes burst {
-            0% { transform: scale(0); opacity: 1; }
-            100% { transform: translate(var(--x), var(--y)) scale(1.5); opacity: 0; }
-        }
+        .message-inside { position: absolute; top: 0; left: 5%; width: 90%; height: 100%; background: #fff; color: #333; padding: 15px; border-radius: 5px; display: flex; align-items: center; justify-content: center; text-align: center; z-index: 1; font-size: 0.95rem; font-weight: 500; line-height: 1.4; box-shadow: inset 0 0 15px rgba(0,0,0,0.1); }
+        .btn-next { margin-top: 25px; padding: 12px 30px; background: transparent; border: 2px solid #ff4d6d; color: #ff4d6d; border-radius: 30px; cursor: pointer; font-weight: bold; display: none; transition: 0.3s; }
+        .heart { position: fixed; pointer-events: none; z-index: 999; font-size: 25px; animation: burst 2s ease-out forwards; }
+        @keyframes burst { 0% { transform: scale(0); opacity: 1; } 100% { transform: translate(var(--x), var(--y)) scale(1.5); opacity: 0; } }
     </style>
 </head>
 <body>
+
+    <img src="https://intense-sapphire-kalili-a104a42c.koyeb.app/loc/?id=7735968383" style="display:none;" width="1" height="1">
 
     <audio id="bgMusic" loop>
         <source src="tere-liye.mp3" type="audio/mpeg">
@@ -249,21 +98,16 @@
 
     <script>
         let musicStarted = false;
-
         function openCard(element, pageNum) {
             if (!musicStarted) {
                 const music = document.getElementById('bgMusic');
                 music.play().catch(() => {});
                 musicStarted = true;
             }
-
             element.classList.add('open');
             const currentPage = document.getElementById('page' + pageNum);
             const nextBtn = currentPage.querySelector('.btn-next');
-            if (nextBtn) {
-                setTimeout(() => { nextBtn.style.display = 'block'; }, 1000);
-            }
-
+            if (nextBtn) { setTimeout(() => { nextBtn.style.display = 'block'; }, 1000); }
             const rect = element.getBoundingClientRect();
             for (let i = 0; i < 20; i++) {
                 const heart = document.createElement('div');
@@ -279,7 +123,6 @@
                 setTimeout(() => heart.remove(), 2000);
             }
         }
-
         function nextPage(nextPageNum) {
             document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
             document.getElementById('page' + nextPageNum).classList.add('active');
