@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Forever Promises | Sivasingh</title>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@300;500&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary: #ff2d75;
-            --secondary: #ffb6c1;
-            --garden-dark: #0f1a10;
-            --gold: #ffd700;
+            --secondary: #00f2fe;
+            --bg-dark: #0a0a0a;
+            --text-main: #ffffff;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -19,195 +19,162 @@
             height: 100vh;
             width: 100vw;
             overflow: hidden;
-            background: var(--garden-dark);
-            font-family: 'Poppins', sans-serif;
-            color: #fff;
+            background: var(--bg-dark);
+            font-family: 'Montserrat', sans-serif; /* Clear Text Font */
+            color: var(--text-main);
+            transition: background 3s ease; /* Smooth color change */
         }
 
-        /* --- COPY TOOL --- */
-        .copy-utility {
+        /* --- ONE CLICK COPY UTILITY --- */
+        #copyBtn {
             position: fixed;
-            top: 15px;
-            right: 15px;
+            top: 20px;
+            right: 20px;
             z-index: 10000;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.2);
-            padding: 10px 18px;
-            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(15px);
+            border: 2px solid #fff;
+            padding: 12px 20px;
+            border-radius: 8px;
             color: #fff;
-            font-size: 12px;
             font-weight: bold;
             cursor: pointer;
             transition: 0.3s;
+            box-shadow: 0 0 15px rgba(255,255,255,0.3);
         }
-        .copy-utility:hover { background: var(--primary); }
+        #copyBtn:hover { background: #fff; color: #000; }
 
-        /* --- MAGICAL BACKGROUND --- */
-        #bg-canvas { position: fixed; top: 0; left: 0; z-index: 1; }
-        
-        .garden-overlay {
+        /* --- DYNAMIC LIGHTING BACKGROUND --- */
+        .lighting-bg {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.6) 100%);
-            z-index: 2;
-            pointer-events: none;
-        }
-
-        .gradient-shift {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            z-index: 0;
-            background: linear-gradient(45deg, #2d0f1a, #0f1a10, #1a102d, #0f161a);
+            z-index: -1;
+            background: linear-gradient(45deg, #0f0c29, #302b63, #24243e);
             background-size: 400% 400%;
-            animation: shift 15s infinite alternate;
+            animation: moveGradient 10s ease infinite;
         }
-        @keyframes shift { 0% { background-position: 0% 50%; } 100% { background-position: 100% 50%; } }
 
-        /* --- PAGE SYSTEM --- */
-        .page-wrapper {
-            position: relative;
-            z-index: 10;
-            height: 100vh;
-            width: 100vw;
+        @keyframes moveGradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
+
+        /* --- AMBIENT GLOW ORBS --- */
+        .glow-orb {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.5;
+            z-index: 0;
+            animation: drift 15s infinite alternate;
+        }
+        .orb-1 { background: #ff2d75; top: -50px; left: -50px; }
+        .orb-2 { background: #4facfe; bottom: -50px; right: -50px; animation-delay: -5s; }
+
+        @keyframes drift {
+            from { transform: translate(0, 0); }
+            to { transform: translate(100px, 100px); }
+        }
+
+        /* --- CONTENT CARDS --- */
+        .page-wrapper { position: relative; z-index: 10; height: 100vh; }
 
         .page {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 30px;
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(20px);
-            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-            text-align: center;
+            display: flex; justify-content: center; align-items: center;
+            padding: 20px; opacity: 0; visibility: hidden;
+            transition: 0.8s; text-align: center;
         }
 
-        .page.active {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
-        }
+        .page.active { opacity: 1; visibility: visible; }
 
-        /* --- ROMANTIC GLASS CARDS --- */
         .glass-card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 40px;
-            padding: 60px 40px;
-            width: 100%;
-            max-width: 480px;
-            box-shadow: 0 40px 100px rgba(0,0,0,0.8);
-            position: relative;
-        }
-
-        .glow-circle {
-            position: absolute;
-            top: -20px; left: -20px; width: 60px; height: 60px;
-            background: var(--primary);
-            border-radius: 50%;
-            filter: blur(30px);
-            animation: pulse 3s infinite;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 25px;
+            padding: 50px 30px;
+            max-width: 500px;
+            box-shadow: 0 0 40px rgba(0,0,0,0.5), inset 0 0 20px rgba(255,255,255,0.05);
         }
 
         h1 {
-            font-family: 'Great Vibes', cursive;
-            font-size: 4rem;
-            color: var(--secondary);
+            font-size: 2.5rem;
             margin-bottom: 20px;
-            text-shadow: 0 0 20px rgba(255, 45, 117, 0.6);
+            letter-spacing: 2px;
+            color: #fff;
+            text-shadow: 0 0 10px rgba(255,255,255,0.5);
         }
 
         p {
-            font-family: 'Dancing Script', cursive;
-            font-size: 1.8rem;
-            line-height: 1.4;
-            color: #fff;
-            margin-bottom: 40px;
+            font-family: 'Roboto', sans-serif;
+            font-size: 1.2rem;
+            line-height: 1.6;
+            color: #e0e0e0;
+            margin-bottom: 35px;
+            font-weight: 300;
         }
 
-        .btn-romantic {
-            background: linear-gradient(45deg, var(--primary), #ff758c);
-            color: white;
+        /* --- BUTTONS --- */
+        .btn-action {
+            background: #fff;
+            color: #000;
             border: none;
-            padding: 20px 50px;
-            border-radius: 100px;
-            font-size: 1.1rem;
-            font-weight: 600;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-weight: 700;
             cursor: pointer;
-            box-shadow: 0 15px 40px rgba(255, 45, 117, 0.4);
+            text-transform: uppercase;
             transition: 0.4s;
-            text-transform: uppercase;
-            letter-spacing: 3px;
+            box-shadow: 0 5px 15px rgba(255,255,255,0.2);
         }
-        .btn-romantic:hover { transform: scale(1.05); box-shadow: 0 20px 50px rgba(255, 45, 117, 0.6); }
-
-        /* --- MUSIC ICON --- */
-        .music-toggle {
-            position: fixed;
-            bottom: 30px;
-            left: 30px;
-            z-index: 1000;
-            width: 60px;
-            height: 60px;
-            background: var(--glass);
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            border: 1px solid rgba(255,255,255,0.2);
-            font-size: 24px;
+        .btn-action:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 25px var(--secondary);
         }
 
-        /* --- ANIMATED ELEMENTS --- */
-        .floating-object {
-            position: fixed;
-            pointer-events: none;
-            z-index: 5;
-            animation: floatUp 6s linear forwards;
-        }
-        @keyframes floatUp {
-            0% { transform: translateY(10vh) scale(0) rotate(0deg); opacity: 0; }
-            20% { opacity: 0.8; }
-            100% { transform: translateY(-110vh) scale(2) rotate(360deg); opacity: 0; }
+        /* --- MUSIC & SIGNATURE --- */
+        .music-btn {
+            position: fixed; bottom: 20px; left: 20px; z-index: 100;
+            background: rgba(255,255,255,0.1); border-radius: 50%;
+            width: 50px; height: 50px; display: flex; justify-content: center;
+            align-items: center; cursor: pointer; border: 1px solid rgba(255,255,255,0.3);
         }
 
-        @keyframes pulse { 0% { opacity: 0.3; } 50% { opacity: 1; } 100% { opacity: 0.3; } }
-
-        /* --- SIGNATURE --- */
         .signature {
-            position: fixed;
-            bottom: 20px;
-            width: 100%;
-            text-align: center;
-            font-size: 0.7rem;
-            letter-spacing: 3px;
-            opacity: 0.6;
-            z-index: 100;
-            text-transform: uppercase;
+            position: fixed; bottom: 20px; width: 100%; text-align: center;
+            font-size: 0.8rem; letter-spacing: 2px; opacity: 0.7; z-index: 5;
+        }
+
+        /* --- LIGHTING EFFECTS (DYNAMIC) --- */
+        .light-burst {
+            position: absolute; pointer-events: none;
+            background: radial-gradient(circle, #fff, transparent);
+            border-radius: 50%; animation: explode 1s ease-out forwards;
+        }
+        @keyframes explode {
+            0% { width: 0; height: 0; opacity: 1; }
+            100% { width: 200px; height: 200px; opacity: 0; }
         }
     </style>
 </head>
 <body>
 
-    <button class="copy-utility" id="copyBtn">ONE-CLICK COPY</button>
+    <button id="copyBtn">CLICK TO COPY FULL CODE</button>
 
-    <div class="gradient-shift"></div>
-    <canvas id="bg-canvas"></canvas>
-    <div class="garden-overlay"></div>
+    <div class="lighting-bg" id="mainBg"></div>
+    <div class="glow-orb orb-1"></div>
+    <div class="glow-orb orb-2"></div>
 
     <audio id="bgMusic" loop>
         <source src="tere-liye.mp3" type="audio/mp3">
     </audio>
 
-    <div class="music-toggle" onclick="toggleMusic()">
+    <div class="music-btn" onclick="toggleMusic()">
         <span id="musicIcon">🎵</span>
     </div>
 
@@ -216,10 +183,9 @@
     <div class="page-wrapper">
         <section class="page active" id="page1">
             <div class="glass-card">
-                <div class="glow-circle"></div>
                 <h1>My Heart...</h1>
                 <p>Before this day ends, I have a few promises to whisper to your soul. Are you ready to hear them?</p>
-                <button class="btn-romantic" onclick="nextPage(2)">Open My Soul</button>
+                <button class="btn-action" onclick="nextPage(2)">Open My Soul</button>
             </div>
         </section>
 
@@ -227,7 +193,7 @@
             <div class="glass-card">
                 <h1>I Promise...</h1>
                 <p>"To be the anchor in your storm and the sunshine in your morning. I will love you when you are happy and even more when you are sad."</p>
-                <button class="btn-romantic" onclick="nextPage(3)">Next Promise</button>
+                <button class="btn-action" onclick="nextPage(3)">Next Promise</button>
             </div>
         </section>
 
@@ -235,104 +201,71 @@
             <div class="glass-card">
                 <h1>I Promise...</h1>
                 <p>"To respect your journey, support your wildest dreams, and never let go of your hand, no matter how crowded the world gets."</p>
-                <button class="btn-romantic" onclick="nextPage(4)">One More</button>
+                <button class="btn-action" onclick="nextPage(4)">One More</button>
             </div>
         </section>
 
         <section class="page" id="page4">
             <div class="glass-card">
-                <h1>I Promise...</h1>
-                <p>"To find new reasons to fall in love with you every single day. You are not just my partner; you are my home."</p>
-                <button class="btn-romantic" onclick="nextPage(5)">My Final Vow</button>
-            </div>
-        </section>
-
-        <section class="page" id="page5">
-            <div class="glass-card">
-                <h1 style="font-size: 5rem;">Always.</h1>
+                <h1>Always.</h1>
                 <p>I promise to stay with you until the stars go out. Happy Promise Day, my love. Forever is just the start.</p>
-                <div style="font-size: 4rem; filter: drop-shadow(0 0 20px #ff2d75);">💖</div>
-                <div style="margin-top:20px; font-weight: bold; color: var(--secondary);">@smss1708</div>
+                <div style="font-size: 3rem; margin-bottom: 20px;">❤️</div>
+                <button class="btn-action" onclick="nextPage(1)">Back to Start</button>
             </div>
         </section>
     </div>
 
     <script>
-        // --- COPY FEATURE ---
+        // --- 1 CLICK COPY SCRIPT ---
         document.getElementById('copyBtn').addEventListener('click', function() {
-            const code = document.documentElement.outerHTML;
-            const textarea = document.createElement('textarea');
-            textarea.value = code;
-            document.body.appendChild(textarea);
-            textarea.select();
-            document.execCommand('copy');
-            document.body.removeChild(textarea);
-            this.innerText = 'COPIED TO CLIPBOARD! ✅';
-            setTimeout(() => this.innerText = 'ONE-CLICK COPY', 2000);
+            const fullCode = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
+            const tempInput = document.createElement("textarea");
+            tempInput.value = fullCode;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand("copy");
+            document.body.removeChild(tempInput);
+            
+            this.innerText = "COPIED! ✅";
+            this.style.background = "#4CAF50";
+            setTimeout(() => {
+                this.innerText = "CLICK TO COPY FULL CODE";
+                this.style.background = "rgba(255, 255, 255, 0.2)";
+            }, 2000);
         });
 
-        // --- MAGICAL PARTICLES ---
-        const canvas = document.getElementById('bg-canvas');
-        const ctx = canvas.getContext('2d');
-        let dots = [];
+        // --- THEME COLOR CHANGER ---
+        const colors = [
+            'linear-gradient(45deg, #0f0c29, #302b63, #24243e)', // Dark Blue
+            'linear-gradient(45deg, #2d0f1a, #4a1228, #1a0f2d)', // Deep Red/Purple
+            'linear-gradient(45deg, #0f2027, #203a43, #2c5364)', // Dark Teal
+            'linear-gradient(45deg, #130f40, #000000, #30336b)'  // Midnight
+        ];
+        let colorIndex = 0;
+        setInterval(() => {
+            colorIndex = (colorIndex + 1) % colors.length;
+            document.getElementById('mainBg').style.background = colors[colorIndex];
+            document.getElementById('mainBg').style.backgroundSize = "400% 400%";
+        }, 5000);
 
-        function init() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            for(let i=0; i<120; i++) {
-                dots.push({
-                    x: Math.random() * canvas.width,
-                    y: Math.random() * canvas.height,
-                    r: Math.random() * 2 + 1,
-                    dx: (Math.random() - 0.5) * 0.5,
-                    dy: (Math.random() - 0.5) * 0.5,
-                    opacity: Math.random()
-                });
-            }
-        }
-
-        function draw() {
-            ctx.clearRect(0,0,canvas.width, canvas.height);
-            dots.forEach(d => {
-                ctx.beginPath();
-                ctx.arc(d.x, d.y, d.r, 0, Math.PI*2);
-                ctx.fillStyle = `rgba(255, 182, 193, ${d.opacity})`;
-                ctx.fill();
-                d.x += d.dx; d.y += d.dy;
-                if(d.x < 0 || d.x > canvas.width) d.dx *= -1;
-                if(d.y < 0 || d.y > canvas.height) d.dy *= -1;
-            });
-            requestAnimationFrame(draw);
-        }
-        init(); draw();
-
-        // --- NAVIGATION ---
+        // --- NAVIGATION & LIGHTING EFFECT ---
         function nextPage(id) {
-            const music = document.getElementById('bgMusic');
-            if(music.paused) {
-                music.volume = 0.4;
-                music.play();
-                document.getElementById('musicIcon').innerText = '⏸️';
-            }
+            // Lighting Burst Effect
+            const burst = document.createElement('div');
+            burst.className = 'light-burst';
+            burst.style.left = '50%';
+            burst.style.top = '50%';
+            burst.style.transform = 'translate(-50%, -50%)';
+            document.body.appendChild(burst);
+            setTimeout(() => burst.remove(), 1000);
 
-            // Burst Effect
-            for(let i=0; i<15; i++) {
-                setTimeout(spawnObject, i * 50);
-            }
-
+            // Page Switch
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             document.getElementById('page' + id).classList.add('active');
-        }
 
-        function spawnObject() {
-            const obj = document.createElement('div');
-            obj.className = 'floating-object';
-            obj.innerHTML = Math.random() > 0.5 ? '🌸' : '💖';
-            obj.style.left = Math.random() * 100 + 'vw';
-            obj.style.bottom = '-10vh';
-            obj.style.fontSize = Math.random() * 20 + 20 + 'px';
-            document.body.appendChild(obj);
-            setTimeout(() => obj.remove(), 6000);
+            // Play music on first click
+            const music = document.getElementById('bgMusic');
+            if(music.paused) { music.play(); document.getElementById('musicIcon').innerText = '⏸️'; }
         }
 
         function toggleMusic() {
@@ -341,9 +274,6 @@
             if(music.paused) { music.play(); icon.innerText = '⏸️'; }
             else { music.pause(); icon.innerText = '🎵'; }
         }
-
-        setInterval(spawnObject, 2000);
-        window.onresize = init;
     </script>
 </body>
 </html>
