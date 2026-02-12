@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Promise Day</title>
+    <title>Happy Birthday Aafiya ji </title>
     <style>
-        /* CSS STYLING */
+        /* CSS STYLING - (Same as before with minor color tweaks if needed) */
         @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@600&display=swap');
 
         body {
             margin: 0;
             padding: 0;
-            background-color: #ffe6e6;
+            background-color: #ffe6e6; /* Soft Pink Background */
             font-family: 'Nunito', sans-serif;
             display: flex;
             justify-content: center;
@@ -35,7 +35,7 @@
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
 
-        /* RGB Lighting Effect Animation */
+        /* RGB Lighting Effect Animation (SAME) */
         @keyframes rgbGlow {
             0% { box-shadow: 0 0 20px #ff0000, 0 0 10px #ff0000 inset; border-color: #ff0000; }
             25% { box-shadow: 0 0 20px #ffff00, 0 0 10px #ffff00 inset; border-color: #ffff00; }
@@ -74,27 +74,26 @@
             line-height: 1.4;
         }
 
-        /* UPDATED Image Container for fixed look */
+        /* Image Container */
         .img-container {
-            width: 220px;  /* Fixed square size */
-            height: 220px; /* Fixed square size */
-            margin: 0 auto; /* Center the box */
+            width: 220px;
+            height: 220px;
+            margin: 0 auto;
             border-radius: 15px;
             overflow: hidden;
-            background: #fff0f5; /* Pale background if image isn't perfectly square */
+            background: #fff0f5;
             display: flex;
             justify-content: center;
             align-items: center;
-            border: 2px solid #f0d4d4; /* Subtle border like screenshots */
+            border: 2px solid #f0d4d4;
         }
 
-        /* UPDATED Image Styling so photos fit nicely */
         img {
             max-width: 100%;
             max-height: 100%;
             width: auto;
             height: auto;
-            object-fit: contain; /* Ensure full photo is visible without cutting */
+            object-fit: contain;
             border-radius: 12px;
         }
 
@@ -121,7 +120,7 @@
             display: none;
         }
 
-        /* Floating Hearts Background */
+        /* Floating Background (Updated for Birthday) */
         .heart-bg {
             position: absolute;
             width: 100%;
@@ -162,114 +161,110 @@
 </head>
 <body>
 
-    <div class="top-header">Follow 📷 - @smss1708</div>
+    <div class="top-header">Made with ❤️ - @smss1708</div>
 
     <audio id="bgMusic" loop>
-        <source src="tere-liye.mp3" type="audio/mp3">
+        <source src="birthday-song.mp3" type="audio/mp3">
     </audio>
 
     <div class="heart-bg" id="hearts"></div>
 
     <div class="card" id="screen1">
-        <h1>Happy Promise Day ❤️</h1>
+        <h1>Happy Birthday! 🎂</h1>
         <div class="img-container">
-            <img src="photo1.jpg" alt="Start Journey Photo">
+            <img src="photo1.jpg" alt="Birthday Person">
         </div>
-        <p>Click the button below to begin this special journey with music...</p>
-        <button class="btn" onclick="startJourney()">Start Journey 💌</button>
+        <p>Today is a very special day because a legend was born! Ready to celebrate?</p>
+        <button class="btn" onclick="startJourney()">Open Surprise 🎁</button>
     </div>
 
     <div class="card hidden" id="screen2">
-        <h1>My First Promise 💖</h1>
+        <h1>A Special Wish ✨</h1>
         <div class="img-container">
-            <img src="photo2.jpg" alt="Promise 1 Photo">
+            <img src="photo2.jpg" alt="Memory Photo 1">
         </div>
-        <p>I promise... No matter how far we are, distance will never separate my heart from yours.</p>
-        <button class="btn" onclick="nextScreen(3)">Next Promise 👉</button>
+        <p>I wish your life becomes as beautiful as your smile and as magical as our memories.</p>
+        <button class="btn" onclick="nextScreen(3)">Next Wish 👉</button>
     </div>
 
     <div class="card hidden" id="screen3">
-        <h1>My Second Promise 🌸</h1>
+        <h1>Keep Shining 🌟</h1>
         <div class="img-container">
-            <img src="photo3.jpg" alt="Promise 2 Photo">
+            <img src="photo3.jpg" alt="Memory Photo 2">
         </div>
-        <p>I promise... I will always take care of you, stand by you in your highs and your lows.</p>
-        <button class="btn" onclick="nextScreen(4)">Final Promise 👉</button>
+        <p>May this year bring you endless success, laughter, and lots of cake!</p>
+        <button class="btn" onclick="nextScreen(4)">Final Question 👉</button>
     </div>
 
     <div class="card hidden" id="screen4">
-        <h1>One Last Question 💍</h1>
+        <h1>Important Question 🍰</h1>
         <div class="img-container">
-            <img src="photo4.jpg" alt="Final Question Photo">
+            <img src="photo4.jpg" alt="Funny Photo">
         </div>
-        <p>Will you stay with me forever and be my valentine?</p>
+        <p>Do you promise to give me a big Party treat?</p>
         <div class="btn-group">
-            <button class="btn" onclick="finalSuccess()">YES 💖</button>
+            <button class="btn" onclick="finalSuccess()">YES 🥳</button>
             <button class="btn" id="noBtn" onmouseover="moveButton()" ontouchstart="moveButton()">NO 🙈</button>
         </div>
     </div>
 
     <div class="card hidden" id="screen5">
-        <h1>Yayyy! I Knew It! 🥳</h1>
+        <h1>YAYYY! Party Time! 🥳</h1>
         <div class="img-container" style="background: transparent; border: none;">
-            <img src="kiss.gif" alt="Celebration" style="object-fit: cover;">
+            <img src="https://media.giphy.com/media/U4DswrBzhxB5LS0FNg/giphy.gif" alt="Celebration GIF" style="object-fit: cover;">
         </div>
-        <p>You are my forever and always. Happy Promise Day, my love! ✨</p>
+        <p>Happy Birthday once again! You are the best! Let's enjoy your day! ❤️</p>
     </div>
 
     <script>
         // Logic to switch screens and play music
 
         function startJourney() {
-            // Try to play music
             var audio = document.getElementById("bgMusic");
-            // Set volume to 50% initially
             audio.volume = 0.5;
             audio.play().catch(error => {
-                console.log("Audio play failed (browser policy needs interaction first): ", error);
+                console.log("Interaction needed for audio");
             });
-            
-            // Go to next screen
             nextScreen(2);
         }
 
         function nextScreen(screenNumber) {
-            // Hide all screens
             for(let i = 1; i <= 5; i++) {
                 document.getElementById('screen' + i).classList.add('hidden');
             }
-
-            // Show requested screen
             document.getElementById('screen' + screenNumber).classList.remove('hidden');
         }
 
         function finalSuccess() {
             nextScreen(5);
-            // Makes the RGB border flash faster on success
-            document.querySelector('.card').style.animationDuration = "1s";
+            // Makes the RGB border flash faster on success for party effect
+            document.querySelector('.card').style.animationDuration = "0.5s";
         }
 
-        // Funny logic: Move the 'NO' button when hovered or touched
+        // Funny logic: Move the 'NO' button
         function moveButton() {
-            var x = Math.random() * (window.innerWidth - 120); // Ensure it stays within width
-            var y = Math.random() * (window.innerHeight - 120); // Ensure it stays within height
+            var x = Math.random() * (window.innerWidth - 120);
+            var y = Math.random() * (window.innerHeight - 120);
             var btn = document.getElementById('noBtn');
             btn.style.position = 'fixed';
-            btn.style.left = Math.max(10, x) + 'px'; // Keep some margin
+            btn.style.left = Math.max(10, x) + 'px';
             btn.style.top = Math.max(10, y) + 'px';
-            btn.style.zIndex = '1001'; // Ensure it's on top
+            btn.style.zIndex = '1001';
         }
 
-        // Creating floating hearts background
+        // Creating floating Birthday elements (Balloons, Cake, Hearts)
         function createHearts() {
             const heartContainer = document.getElementById('hearts');
-            for (let i = 0; i < 25; i++) {
+            // Added Birthday Emojis
+            const symbols = ['🎈', '🎂', '🎁', '✨', '❤', '🥳'];
+            
+            for (let i = 0; i < 30; i++) {
                 let div = document.createElement('div');
                 div.className = 'heart';
-                div.innerHTML = ['❤', '💖', '🌸', '✨'][Math.floor(Math.random() * 4)]; // Random symbols
+                div.innerHTML = symbols[Math.floor(Math.random() * symbols.length)];
                 div.style.left = Math.random() * 100 + 'vw';
-                div.style.animationDuration = (Math.random() * 4 + 4) + 's';
-                div.style.fontSize = (Math.random() * 25 + 15) + 'px';
+                div.style.animationDuration = (Math.random() * 3 + 4) + 's'; // Slower/Faster mix
+                div.style.fontSize = (Math.random() * 20 + 20) + 'px';
                 heartContainer.appendChild(div);
             }
         }
